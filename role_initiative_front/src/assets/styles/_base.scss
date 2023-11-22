@@ -20,14 +20,17 @@ body {
 
 body[data-ttrpg-genre="fantasy"] {
     --accent-clr: var(--fantasy-accent-clr);
+    --txt-clr: var(--fantasy-txt-clr);
 }
 
 body[data-ttrpg-genre="scifi"] {
     --accent-clr: var(--scifi-accent-clr);
+    --txt-clr: var(--scifi-txt-clr);
 }
 
 body[data-ttrpg-genre="horror"] {
     --accent-clr: var(--horror-accent-clr);
+    --txt-clr: var(--horror-txt-clr);
 }
 
 h1,
