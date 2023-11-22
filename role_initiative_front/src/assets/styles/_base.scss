@@ -1,0 +1,44 @@
+@use "./mixins" as *;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    scroll-behavior: smooth;
+    min-height: 100vh;
+    min-height: 100svh;
+    background-color: var(--light-clr);
+    color: var(--dark-clr);
+    font-family: var(--corpus-ff);
+    font-size: var(--fs-200);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--title-ff);
+    font-weight: var(--title-fw);
+}
+
+h1 {
+    font-size: var(--fs-700);
+}
+
+h2,
+h3 {
+    font-size: var(--fs-600);
+}
+
+a {
+    display: block;
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}

@@ -1,0 +1,34 @@
+:root {
+    // Font-Family
+    --title-ff: "Big Shoulders Display", sans-serif;
+    --corpus-ff: "Rubik", sans-serif;
+
+    // Font-Weight
+    --title-fw: 600;
+    --nav-link-fw: 600;
+    --body-fw: 400;
+
+    // Font-Size
+    --hero-title-fs-300: 1.75rem;
+    --hero-title-fs-400: 3rem;
+    --hero-title-fs-500: 3.375rem;
+    --fs-100: 0.625rem;
+    --fs-200: .75rem;
+    --fs-300: .875rem;
+    --fs-400: 1rem;
+    --fs-500: 1.125rem;
+    --fs-600: 1.375rem;
+    --fs-700: 1.5rem;
+    --fs-800: 1.75rem;
+    --fs-900: 2rem;
+    --nav-fs: clamp(1.125rem, calc(1vw + 1rem), 2rem);
+    --hero-tile-fs: clamp(1.75rem, calc(1.5vw + 1.5rem), 3.375rem);
+    --title-fs: clamp(1.125rem, calc(1vw + 1rem), 2rem);
+    --corpus-fs: clamp(.875rem, calc(.25vw + .875rem), 1.125rem);
+    --legend-fs: clamp(.625rem, calc(.25vw + .5rem), .875rem);
+
+    // Colors
+
+
+    // Miscellaneous
+}
