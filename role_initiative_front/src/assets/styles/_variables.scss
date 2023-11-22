@@ -1,12 +1,12 @@
 :root {
     // Font-Family
-    --title-ff: "Big Shoulders Display", sans-serif;
-    --corpus-ff: "Rubik", sans-serif;
+    --title-ff: "Archivo Black", sans-serif;
+    --corpus-ff: "Inter", sans-serif;
 
     // Font-Weight
-    --title-fw: 600;
     --nav-link-fw: 600;
     --body-fw: 400;
+    --legend-fw: 200;
 
     // Font-Size
     --hero-title-fs-300: 1.75rem;
@@ -28,7 +28,16 @@
     --legend-fs: clamp(.625rem, calc(.25vw + .5rem), .875rem);
 
     // Colors
-
+    --primary-bg-clr: hsl(216 100% 6%);
+    --secondary-bg-clr: hsl(216 65% 15%);
+    --fantasy-accent-clr: hsl(24 100% 60%);
+    --fantasy-txt-clr: hsl(25, 100%, 98%);
+    --scifi-accent-clr: hsl(295, 100%, 60%);
+    --scifi-txt-clr: hsl(295, 100%, 98%);
+    --horror-accent-clr: hsl(155 100% 60%);
+    --horror-txt-clr: hsl(155 100% 98%);
+    --accent-clr: var(--fantasy-accent-clr);
+    --txt-clr: var(--fantasy-txt-clr);
 
     // Miscellaneous
 }

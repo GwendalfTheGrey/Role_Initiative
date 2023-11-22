@@ -12,26 +12,33 @@ body {
     scroll-behavior: smooth;
     min-height: 100vh;
     min-height: 100svh;
-    background-color: var(--light-clr);
-    color: var(--dark-clr);
+    background-color: var(--primary-bg-clr);
+    color: var(--txt-clr);
     font-family: var(--corpus-ff);
-    font-size: var(--fs-200);
+    font-size: var(--fs-300);
+}
+
+body[data-ttrpg-genre="fantasy"] {
+    --accent-clr: var(--fantasy-accent-clr);
+}
+
+body[data-ttrpg-genre="scifi"] {
+    --accent-clr: var(--scifi-accent-clr);
+}
+
+body[data-ttrpg-genre="horror"] {
+    --accent-clr: var(--horror-accent-clr);
 }
 
 h1,
 h2,
 h3 {
     font-family: var(--title-ff);
-    font-weight: var(--title-fw);
 }
 
-h1 {
-    font-size: var(--fs-700);
-}
-
-h2,
-h3 {
-    font-size: var(--fs-600);
+img {
+    display: block;
+    max-width: 100%;
 }
 
 a {
