@@ -8,7 +8,7 @@
         @content;
     }
 }
-@mixin md {
+@mixin m {
     @media (min-width: 48.01em) {
         @content;
     }

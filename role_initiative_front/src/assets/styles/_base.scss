@@ -10,27 +10,32 @@
 
 body {
     scroll-behavior: smooth;
-    min-height: 100vh;
-    min-height: 100svh;
     background-color: var(--primary-bg-clr);
     color: var(--txt-clr);
     font-family: var(--corpus-ff);
-    font-size: var(--fs-300);
+    font-size: var(--corpus-fs);
 }
 
 body[data-ttrpg-genre="fantasy"] {
-    --accent-clr: var(--fantasy-accent-clr);
-    --txt-clr: var(--fantasy-txt-clr);
+    --accent-clr: var(--fantasy-accent-clr, hsl(29, 100%, 50%));
+    --txt-clr: var(--fantasy-txt-clr, hsl(0, 0%, 100%));
 }
 
 body[data-ttrpg-genre="scifi"] {
-    --accent-clr: var(--scifi-accent-clr);
-    --txt-clr: var(--scifi-txt-clr);
+    --accent-clr: var(--scifi-accent-clr, hsl(290, 100%, 50%));
+    --txt-clr: var(--scifi-txt-clr, hsl(0, 0%, 100%));
 }
 
 body[data-ttrpg-genre="horror"] {
-    --accent-clr: var(--horror-accent-clr);
-    --txt-clr: var(--horror-txt-clr);
+    --accent-clr: var(--horror-accent-clr, hsl(152, 100%, 50%));
+    --txt-clr: var(--horror-txt-clr, hsl(0, 0%, 100%));
+}
+
+#root {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    min-height: 100svh;
 }
 
 h1,
@@ -47,8 +52,27 @@ img {
 a {
     display: block;
     text-decoration: none;
+    color: var(--txt-clr);
+}
+
+p > a {
+    display: inline-block;
 }
 
 li {
     list-style-type: none;
+}
+
+footer {
+    justify-self: center;
+    align-self: end;
+    margin-bottom: 1em;
+    width: 100%;
+    font-size: var(--nav-fs);
+    p {
+        width: calc(100% - 4em);
+        text-align: center;
+        line-height: 1.5;
+        font-size: var(--legend-fs);
+    }
 }

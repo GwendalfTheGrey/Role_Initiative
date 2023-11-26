@@ -1,0 +1,74 @@
+@use "../../assets/styles/mixins" as *;
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(
+        var(--secondary-bg-clr),
+        var(--primary-bg-clr) 10%
+    );
+}
+
+.footer_nav {
+    display: grid;
+    place-items: center;
+    width: fit-content;
+    padding: 3em 0;
+    &_logo {
+        position: relative;
+        max-width: var(--logo-max-width);
+        margin-bottom: 2em;
+        -webkit-tap-highlight-color: transparent;
+        &_text {
+            width: 100%;
+            fill: var(--txt-clr);
+        }
+        &_dice {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            fill: var(--accent-clr);
+            transition: filter 350ms ease-in-out;
+        }
+        &:hover .footer_nav_logo_dice {
+            filter: drop-shadow(0 0 0.5em var(--accent-clr));
+        }
+    }
+    &_content {
+        text-align: center;
+        &_links > li:not(:last-child) {
+            margin-bottom: 1em;
+        }
+        &_socials {
+            display: flex;
+            justify-content: center;
+            > * + * {
+                margin-left: 1em;
+            }
+            a {
+                margin-top: 0.5em;
+                padding: 0.5em;
+                opacity: 0.5;
+                transition: opacity 200ms ease;
+                -webkit-tap-highlight-color: transparent;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+            svg {
+                width: 100%;
+                max-height: var(--socials-max-width);
+            }
+        }
+    }
+    @include sm {
+        grid-template-columns: auto auto;
+        &_logo {
+            margin-right: 3em;
+        }
+    }
+}

@@ -21,7 +21,7 @@
     --fs-700: 1.5rem;
     --fs-800: 1.75rem;
     --fs-900: 2rem;
-    --nav-fs: clamp(1.125rem, calc(1vw + 1rem), 2rem);
+    --nav-fs: clamp(1.125rem, calc(.25vw + 1rem), 1.5rem);
     --hero-tile-fs: clamp(1.75rem, calc(1.5vw + 1.5rem), 3.375rem);
     --title-fs: clamp(1.125rem, calc(1vw + 1rem), 2rem);
     --corpus-fs: clamp(.875rem, calc(.25vw + .875rem), 1.125rem);
@@ -40,4 +40,6 @@
     --txt-clr: var(--fantasy-txt-clr);
 
     // Miscellaneous
+    --logo-max-width: 8rem;
+    --socials-max-width: 1.75rem;
 }

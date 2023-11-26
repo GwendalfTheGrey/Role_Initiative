@@ -1,0 +1,161 @@
+@use "../../assets/styles/mixins" as *;
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    @include m {
+        background-color: var(--primary-bg-clr);
+        box-shadow: 0 0 2em var(--secondary-bg-clr);
+    }
+}
+
+.primary_nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.75em 2em;
+    // width: calc(100% - 4em);
+    max-width: 120rem;
+    background-color: var(--primary-bg-clr);
+    box-shadow: 0 0 2em var(--secondary-bg-clr);
+    &_logo {
+        position: relative;
+        max-width: var(--logo-max-width);
+        -webkit-tap-highlight-color: transparent;
+        &_text {
+            width: 100%;
+            fill: var(--txt-clr);
+        }
+        &_dice {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            fill: var(--accent-clr);
+            transition: filter 350ms ease-in-out;
+        }
+        &:hover .primary_nav_logo_dice {
+            filter: drop-shadow(0 0 0.5em var(--accent-clr));
+        }
+    }
+    .mobile_menu {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 3rem;
+        border: none;
+        background-color: transparent;
+        aspect-ratio: 1;
+        @include m {
+            display: none;
+        }
+        .line {
+            position: absolute;
+            left: 10%;
+            width: 80%;
+            height: 8%;
+            border-radius: 100vw;
+            background-color: var(--txt-clr);
+            transition: top 150ms ease-in 150ms, bottom 150ms ease-in 150ms,
+                rotate 150ms ease-in, opacity 0ms 150ms;
+        }
+        .top {
+            top: 22%;
+        }
+        .middle {
+            top: 46%;
+        }
+        .bottom {
+            bottom: 22%;
+        }
+        &[aria-expanded="true"] {
+            .line {
+                transition: top 150ms ease-in, bottom 150ms ease-in,
+                    rotate 150ms ease-in 150ms, opacity 0ms 150ms;
+            }
+            .top {
+                top: 46%;
+                rotate: 45deg;
+            }
+            .middle {
+                opacity: 0;
+            }
+            .bottom {
+                bottom: 46%;
+                rotate: -45deg;
+            }
+            + .primary_nav_links {
+                top: 100%;
+                transform: translateY(0);
+            }
+        }
+    }
+    &_links {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: -1;
+        transform: translateY(-100%);
+        display: flex;
+        flex-direction: column;
+        background-color: var(--primary-bg-clr);
+        text-align: center;
+        font-size: 1.75rem;
+        transition: top 400ms ease-in-out, transform 400ms ease-in-out;
+        > * {
+            width: 100%;
+            padding: 1em 0;
+            + * {
+                border-top: 1px solid var(--secondary-bg-clr);
+            }
+            &:last-child {
+                border-bottom: 1px solid var(--secondary-bg-clr);
+            }
+        }
+        .user_icon {
+            display: none;
+            position: relative;
+            max-width: 2.5rem;
+            &_body {
+                width: 100%;
+                fill: var(--txt-clr);
+            }
+            &_dice {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                width: 100%;
+                fill: var(--accent-clr);
+            }
+        }
+    }
+    @include m {
+        background-color: transparent;
+        box-shadow: none;
+        &_links {
+            position: static;
+            z-index: 0;
+            transform: translateY(0);
+            flex-direction: row;
+            align-items: flex-start;
+            background-color: transparent;
+            font-size: var(--nav-fs);
+            > *,
+            *:last-child {
+                border: none;
+            }
+            > * + * {
+                margin-left: 1.5em;
+            }
+        }
+    }
+}
