@@ -5,8 +5,8 @@ footer {
     flex-direction: column;
     align-items: center;
     background: linear-gradient(
-        var(--secondary-bg-clr),
-        var(--primary-bg-clr) 10%
+        var(--primary-bg-clr),
+        var(--secondary-bg-clr) 10%
     );
 }
 
@@ -14,7 +14,7 @@ footer {
     display: grid;
     place-items: center;
     width: fit-content;
-    padding: 3em 0;
+    margin-block: 3em;
     &_logo {
         position: relative;
         max-width: var(--logo-max-width);
@@ -22,7 +22,7 @@ footer {
         -webkit-tap-highlight-color: transparent;
         &_text {
             width: 100%;
-            fill: var(--txt-clr);
+            fill: var(--_txt-clr);
         }
         &_dice {
             position: absolute;
@@ -31,17 +31,24 @@ footer {
             bottom: 0;
             left: 0;
             width: 100%;
-            fill: var(--accent-clr);
-            transition: filter 350ms ease-in-out;
+            fill: var(--_accent-clr);
+            transition: filter 300ms ease-in-out;
         }
-        &:hover .footer_nav_logo_dice {
-            filter: drop-shadow(0 0 0.5em var(--accent-clr));
+        @include hover {
+            .footer_nav_logo_dice {
+                filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+            }
         }
     }
     &_content {
         text-align: center;
-        &_links > li:not(:last-child) {
-            margin-bottom: 1em;
+        &_links {
+            li:not(:last-child) {
+                margin-bottom: 1em;
+            }
+            li:last-child {
+                margin-bottom: 0.5em;
+            }
         }
         &_socials {
             display: flex;
@@ -55,7 +62,7 @@ footer {
                 opacity: 0.5;
                 transition: opacity 200ms ease;
                 -webkit-tap-highlight-color: transparent;
-                &:hover {
+                @include hover {
                     opacity: 1;
                 }
             }

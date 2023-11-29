@@ -1,0 +1,11 @@
+.page-width {
+    width: calc(100% - var(--page-width-margin));
+}
+
+.page-max-width {
+    max-width: var(--page-max-width);
+}
+
+.center-horizontal {
+    margin-inline: auto;
+}

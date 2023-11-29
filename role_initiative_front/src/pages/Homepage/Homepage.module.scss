@@ -1,0 +1,94 @@
+.hero {
+    overflow-x: hidden;
+    &_wrapper {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        margin-block: var(--section-margin-block);
+        &_content {
+            grid-column: 1 / -1;
+            grid-row: 1 / -1;
+            &_title {
+                width: 70%;
+                min-width: 14ch;
+                max-width: 20ch;
+                font-size: var(--hero-title-fs);
+            }
+            &_paragraph {
+                margin-top: 1em;
+                margin-bottom: 2em;
+                width: 70%;
+                min-width: 20ch;
+                max-width: 45ch;
+            }
+        }
+        &_graphic {
+            z-index: -1;
+            grid-column: 7 / 9;
+            grid-row: 2 / 6;
+            width: calc(200% + var(--page-width-margin));
+            max-width: 25rem;
+            rotate: -11deg;
+            fill: var(--fantasy-accent-clr);
+            filter: drop-shadow(0 0 .25em var(--fantasy-accent-clr));
+        }
+    }
+}
+
+.arguments {
+    isolation: isolate;
+    position: relative;
+    background-image: url(../../assets/images/pattern_bg.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(var(--primary-bg-clr) 0, transparent 20% 80%, var(--primary-bg-clr));
+    }
+    &_wrapper {
+        padding-block: var(--section-margin-block);
+        &_content {
+            &_header {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+                svg {
+                    max-height: 2em;
+                    fill: var(--fantasy-accent-clr);
+                }
+            }
+            > * + p {
+                margin-top: 1em;
+            }
+        }
+    }
+}
+
+.about {
+    display: flex;
+    &_wrapper {
+        margin-block: var(--section-margin-block);
+        max-width: 60ch;
+        &_content {
+            &_header {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+                svg {
+                    max-height: 2em;
+                    fill: var(--fantasy-accent-clr);
+                }
+            }
+            > * + p {
+                margin-top: 1em;
+            }
+            p:last-of-type {
+                margin-bottom: 2em;
+            }
+        }
+    }
+}

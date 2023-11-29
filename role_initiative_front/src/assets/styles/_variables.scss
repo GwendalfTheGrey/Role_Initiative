@@ -13,33 +13,43 @@
     --hero-title-fs-400: 3rem;
     --hero-title-fs-500: 3.375rem;
     --fs-100: 0.625rem;
-    --fs-200: .75rem;
-    --fs-300: .875rem;
+    --fs-200: 0.75rem;
+    --fs-300: 0.875rem;
     --fs-400: 1rem;
     --fs-500: 1.125rem;
     --fs-600: 1.375rem;
     --fs-700: 1.5rem;
     --fs-800: 1.75rem;
     --fs-900: 2rem;
-    --nav-fs: clamp(1.125rem, calc(.25vw + 1rem), 1.5rem);
-    --hero-tile-fs: clamp(1.75rem, calc(1.5vw + 1.5rem), 3.375rem);
+    --nav-fs: clamp(1.125rem, calc(0.25vw + 1rem), 1.5rem);
+    --hero-title-fs: clamp(1.75rem, calc(1.5vw + 1.5rem), 3.375rem);
     --title-fs: clamp(1.125rem, calc(1vw + 1rem), 2rem);
-    --corpus-fs: clamp(.875rem, calc(.25vw + .875rem), 1.125rem);
-    --legend-fs: clamp(.625rem, calc(.25vw + .5rem), .875rem);
+    --corpus-fs: clamp(0.875rem, calc(0.25vw + 0.875rem), 1.125rem);
+    --legend-fs: clamp(0.625rem, calc(0.25vw + 0.5rem), 0.875rem);
 
     // Colors
     --primary-bg-clr: hsl(216 100% 6%);
+    --primary-bg-values: 216 100% 6%;
     --secondary-bg-clr: hsl(216 65% 15%);
+    --secondary-bg-values: 216 65% 15%;
     --fantasy-accent-clr: hsl(24 100% 60%);
+    --fantasy-accent-values: 24 100% 60%;
     --fantasy-txt-clr: hsl(25, 100%, 98%);
     --scifi-accent-clr: hsl(295, 100%, 60%);
+    --scifi-accent-values: 295 100% 60%;
     --scifi-txt-clr: hsl(295, 100%, 98%);
     --horror-accent-clr: hsl(155 100% 60%);
+    --horror-accent-values: 155 100% 60%;
     --horror-txt-clr: hsl(155 100% 98%);
     --accent-clr: var(--fantasy-accent-clr);
     --txt-clr: var(--fantasy-txt-clr);
+    --alpha: 0.7;
 
     // Miscellaneous
+    --section-margin-block: 5em;
+    --page-width-margin: 4em;
+    --page-max-width: 100rem;
     --logo-max-width: 8rem;
     --socials-max-width: 1.75rem;
+    --drop-shadow-blur: 0.25em;
 }

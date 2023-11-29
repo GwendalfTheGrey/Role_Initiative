@@ -1,12 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { NavLink, Link } from "react-router-dom";
 import style from "./Header.module.scss";
 import { ReactComponent as LogoText } from "../../assets/images/logo-text.svg";
 import { ReactComponent as LogoDice } from "../../assets/images/logo-dice.svg";
-// import { ReactComponent as UserBody } from "../../assets/images/user-silhouette.svg";
-// import { ReactComponent as UserDice } from "../../assets/images/user-dice.svg";
-import { useEffect, useRef, useState } from "react";
+import { ReactComponent as UserBody } from "../../assets/images/user-silhouette.svg";
+import { ReactComponent as UserDice } from "../../assets/images/user-dice.svg";
+import { ReactComponent as Arrow } from "../../assets/images/arrow.svg";
 
 export default function Header() {
+    const user = useContext(AuthContext);
+
     const [ariaExpanded, setAriaExpanded] = useState("false");
 
     const ref = useRef(null);
@@ -38,8 +42,8 @@ export default function Header() {
 
     return (
         <header>
-            <nav className={`${style.primary_nav}`}>
-                <NavLink className={`${style.primary_nav_logo}`} to="/">
+            <nav className={`page-max-width center-horizontal ${style.primary_nav}`}>
+                <NavLink className={`${style.primary_nav_logo}`} to="/" title="Accueil">
                     <LogoText className={`${style.primary_nav_logo_text}`} />
                     <LogoDice className={`${style.primary_nav_logo_dice}`} />
                 </NavLink>
@@ -49,32 +53,48 @@ export default function Header() {
                     aria-expanded={ariaExpanded}
                     onClick={handleExpanded}
                 >
-                    <div className={`${style.line} ${style.top}`} width="80" height="8" x="10" y="22" rx="4"></div>
-                    <div className={`${style.line} ${style.middle}`} width="80" height="8" x="10" y="46" rx="4"></div>
-                    <div className={`${style.line} ${style.bottom}`} width="80" height="8" x="10" y="70" rx="4"></div>
+                    <Arrow/>
                 </button>
                 <ul className={`${style.primary_nav_links}`} ref={ref}>
-                    {/* <li>
-                        <div className={`${style.user_icon}`}>
-                            <UserBody className={`${style.user_icon_body}`} />
-                            <UserDice className={`${style.user_icon_dice}`} />
-                        </div>
-                    </li> */}
                     <li><NavLink
                         className={({ isActive }) => isActive ? `${style.active}` : ``}
                         to="/"
                         onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
-                    >Accueil</NavLink></li>
+                    >
+                        Accueil
+                    </NavLink></li>
                     <li><NavLink
                         className={({ isActive }) => isActive ? `${style.active}` : ``}
-                        to="login-register"
+                        to={user ? "fantasy" : "login-register"}
                         onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
-                    >Connexion/Inscription</NavLink></li>
-                    <li><NavLink
-                        className={({ isActive }) => isActive ? `${style.active}` : ``}
-                        to="contact"
-                        onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
-                    >Contact</NavLink></li>
+                    >
+                        {user ? "Fantaisie" : "Connexion/Inscription"}
+                    </NavLink></li>
+                    {user &&
+                        <>
+                            <li><NavLink
+                                className={({ isActive }) => isActive ? `${style.active}` : ``}
+                                to="sci-fi"
+                                onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
+                            >
+                                Sci-fi
+                            </NavLink></li>
+                            <li><NavLink
+                                className={({ isActive }) => isActive ? `${style.active}` : ``}
+                                to="horror-and-other"
+                                onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
+                            >
+                                Horreur/Autre
+                            </NavLink></li>
+                            <li>
+                                <Link className={`${style.user_icon}`}title="Profil">
+                                    <UserBody className={`${style.user_icon_body}`} />
+                                    <UserDice className={`${style.user_icon_dice}`} />
+                                    <span>Profil</span>
+                                </Link>
+                            </li>
+                        </>
+                    }
                 </ul>
             </nav>
         </header>

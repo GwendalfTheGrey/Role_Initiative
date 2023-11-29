@@ -17,18 +17,21 @@ body {
 }
 
 body[data-ttrpg-genre="fantasy"] {
-    --accent-clr: var(--fantasy-accent-clr, hsl(29, 100%, 50%));
-    --txt-clr: var(--fantasy-txt-clr, hsl(0, 0%, 100%));
+    --_accent-clr: var(--fantasy-accent-clr, hsl(29, 100%, 50%));
+    --_accent-values: var(--fantasy-accent-values);
+    --_txt-clr: var(--fantasy-txt-clr, hsl(0, 0%, 100%));
 }
 
 body[data-ttrpg-genre="scifi"] {
-    --accent-clr: var(--scifi-accent-clr, hsl(290, 100%, 50%));
-    --txt-clr: var(--scifi-txt-clr, hsl(0, 0%, 100%));
+    --_accent-clr: var(--scifi-accent-clr, hsl(290, 100%, 50%));
+    --_accent-values: var(--scifi-accent-values);
+    --_txt-clr: var(--scifi-txt-clr, hsl(0, 0%, 100%));
 }
 
 body[data-ttrpg-genre="horror"] {
-    --accent-clr: var(--horror-accent-clr, hsl(152, 100%, 50%));
-    --txt-clr: var(--horror-txt-clr, hsl(0, 0%, 100%));
+    --_accent-clr: var(--horror-accent-clr, hsl(152, 100%, 50%));
+    --_accent-values: var(--horror-accent-values);
+    --_txt-clr: var(--horror-txt-clr, hsl(0, 0%, 100%));
 }
 
 #root {
@@ -42,6 +45,11 @@ h1,
 h2,
 h3 {
     font-family: var(--title-ff);
+    line-height: 1.2;
+}
+
+main h2 {
+    font-size: var(--title-fs);
 }
 
 img {
@@ -66,11 +74,10 @@ li {
 footer {
     justify-self: center;
     align-self: end;
-    margin-bottom: 1em;
+    padding-bottom: 1em;
     width: 100%;
     font-size: var(--nav-fs);
     p {
-        width: calc(100% - 4em);
         text-align: center;
         line-height: 1.5;
         font-size: var(--legend-fs);
