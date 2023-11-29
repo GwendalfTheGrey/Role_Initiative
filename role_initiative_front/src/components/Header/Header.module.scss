@@ -21,7 +21,7 @@ header {
     z-index: 10;
     @include m {
         background-color: var(--primary-bg-clr);
-        box-shadow: 0 0 2em var(--secondary-bg-clr);
+        box-shadow: 0 0 2em 1em var(--secondary-bg-clr);
     }
 }
 
@@ -30,9 +30,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-block: 0.75em;
+    padding: 0.75em calc(var(--page-width-margin) / 2);
     background-color: var(--primary-bg-clr);
-    box-shadow: 0 0 2em var(--secondary-bg-clr);
+    box-shadow: 0 0 2em 1em var(--secondary-bg-clr);
     &_logo {
         position: relative;
         max-width: var(--logo-max-width);
@@ -136,6 +136,8 @@ header {
     @include m {
         background-color: transparent;
         box-shadow: none;
+        padding: .75em 0;
+        width: calc(100% - var(--page-width-margin));
         &_links {
             position: static;
             z-index: 0;

@@ -14,7 +14,7 @@ footer {
     display: grid;
     place-items: center;
     width: fit-content;
-    margin-block: 3em;
+    margin-block: var(--section-margin-block);
     &_logo {
         position: relative;
         max-width: var(--logo-max-width);

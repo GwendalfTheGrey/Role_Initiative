@@ -31,7 +31,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </nav>
-            <p className="page-width">© Role Initiative 2023 - <Link>Conditions générales</Link> - <Link>Politique de confidentialité</Link> - <Link>Mentions Légales</Link></p>
+            <p className="page-width corpus-line-height">© Role Initiative 2023 - <Link>Conditions générales</Link> - <Link>Politique de confidentialité</Link> - <Link>Mentions Légales</Link></p>
         </footer>
     );
 }

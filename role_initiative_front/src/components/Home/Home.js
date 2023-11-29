@@ -1,7 +1,7 @@
 import style from "../../pages/Homepage/Homepage.module.scss";
 import { ReactComponent as D20 } from "../../assets/images/D20.svg";
 import { ReactComponent as ArgumentsIcon } from "../../assets/images/arguments_icon.svg";
-// import { ReactComponent as Arrow } from "../../assets/images/arrow.svg";
+import { ReactComponent as Arrow } from "../../assets/images/arrow.svg";
 import ButtonPhantom from "../Buttons/ButtonPhantom";
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
                 </div>
             </section>
             <section className={`${style.arguments}`}>
-                <div className={`page-width page-max-width center-horizontal ${style.arguments_wrapper}`}>
+                <article className={`page-width page-max-width center-horizontal ${style.arguments_wrapper}`}>
                     <div className={`${style.arguments_wrapper_visual}`}>
 
                     </div>
@@ -27,8 +27,14 @@ export default function Home() {
                             <h2>Partez à l'aventure</h2>
                             <ArgumentsIcon />
                         </div>
+                        <ul className={`${style.arguments_wrapper_content_list}`}>
+                            <li className="corpus-line-height"><Arrow />Créez ou rejoignez un salon existant et retrouvez des personnes qui comme vous ne cherchent qu'à partir à l'aventure.</li>
+                            <li className="corpus-line-height"><Arrow />Chaque salon à un niveau d'expérience attendu pour y entrer. Cela vous permet de jouer avec des personnes qui elles aussi commencent leurs aventures ou continuent leur ascension vers les sommets.</li>
+                            <li className="corpus-line-height"><Arrow />Vous pouvais choisir de parcourir les salons en fonction du type d'aventure que vous cherchez (magique, futuriste, effrayante, ...). Les salons peuvent aussi être filtrés par leur intitulé, le nom du créateur du salon ou encore par le nombre de participants attendus.</li>
+                            <li className="corpus-line-height"><Arrow />Retrouvez les salons de jeux en cours dans lesquels vous vous trouvez sur votre page profil. Vous y trouverez aussi le nombre de parties complétées vous permettant ainsi de suivre votre progrès.</li>
+                        </ul>
                     </div>
-                </div>
+                </article>
             </section>
             <section className={`${style.about}`}>
                 <article className={`page-width page-max-width center-horizontal ${style.about_wrapper}`}>
@@ -40,8 +46,8 @@ export default function Home() {
                             <h2>Role Initiative</h2>
                             <D20 />
                         </div>
-                        <p>Notre existence à pour seul but de permettre à ceux et celles qui veulent commencer ou continuer leur voyage dans l'univers des jeux de rôle de ne pas se trouver limités par l'absence d'autres joueurs aux alentours, ou encore par le fait qu'un certain niveau soit attendu.</p>
-                        <p>Les salons ont chacun leur niveau attendu pour la participation à une partie. Les nouveaux joueurs peuvent donc ainsi choisir un salon qui leur est adapté avec un maître du jeu qui sera là pour les guider, et les joueurs plus adeptes pourront quant à eux se retrouver avec des personnes tout autant expérimentées.</p>
+                        <p className="corpus-line-height">Notre existence à pour seul but de permettre à ceux et celles qui veulent commencer ou continuer leur voyage dans l'univers des jeux de rôle de ne pas se trouver limités par l'absence d'autres joueurs aux alentours, ou encore par le fait qu'un certain niveau soit attendu.</p>
+                        <p className="corpus-line-height">Les salons ont chacun leur niveau attendu pour la participation à une partie. Les nouveaux joueurs peuvent donc ainsi choisir un salon qui leur est adapté avec un maître du jeu qui sera là pour les guider, et les joueurs plus adeptes pourront quant à eux se retrouver avec des personnes tout autant expérimentées.</p>
                         <ButtonPhantom>Rejoignez-nous</ButtonPhantom>
                     </div>
                 </article>
