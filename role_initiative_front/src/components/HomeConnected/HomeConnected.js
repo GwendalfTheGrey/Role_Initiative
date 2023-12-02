@@ -1,4 +1,4 @@
-// import style from "../../pages/Homepage/Homepage.module.scss";
+// import style from "./HomeConnected.module.scss";
 
 export default function HomeConnected() {
     return (

@@ -153,6 +153,33 @@ header {
             > * + * {
                 margin-left: 1.5em;
             }
+            a {
+                position: relative;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    bottom: -.25em;
+                    left: 0;
+                    height: 2px;
+                    background-color: var(--_accent-clr);
+                    border-radius: 100vw;
+                    filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+                }
+                &.active::after {
+                    width: 100%;
+                }
+                &:not(.active) {
+                    &::after {
+                        width: 0;
+                        transition: width 300ms ease;
+                    }
+                    @include hover {
+                        &::after {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
         }
     }
 }

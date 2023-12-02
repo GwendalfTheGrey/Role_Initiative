@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import HomeConnected from "../../components/Home/HomeConnected";
+import HomeConnected from "../../components/HomeConnected/HomeConnected";
 import Home from "../../components/Home/Home";
 
 export default function Homepage() {

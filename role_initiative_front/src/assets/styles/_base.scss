@@ -57,6 +57,12 @@ img {
     max-width: 100%;
 }
 
+a:focus-visible, button:focus-visible {
+    outline-width: 2px;
+    outline-offset: .25em;
+    outline-color: var(--_txt-clr);
+}
+
 a {
     display: block;
     text-decoration: none;
