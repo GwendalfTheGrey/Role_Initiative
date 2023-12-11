@@ -34,23 +34,31 @@
     --secondary-bg-values: 216 65% 15%;
     --fantasy-accent-clr: hsl(24 100% 60%);
     --fantasy-accent-values: 24 100% 60%;
-    --fantasy-txt-clr: hsl(25, 100%, 98%);
-    --scifi-accent-clr: hsl(295, 100%, 60%);
+    --fantasy-txt-clr: hsl(25 100% 98%);
+    --fantasy-txt-values: 25 100% 98%;
+    --scifi-accent-clr: hsl(295 100% 60%);
     --scifi-accent-values: 295 100% 60%;
-    --scifi-txt-clr: hsl(295, 100%, 98%);
+    --scifi-txt-clr: hsl(295 100% 98%);
+    --scifi-txt-values: 295 100% 98%;
     --horror-accent-clr: hsl(155 100% 60%);
     --horror-accent-values: 155 100% 60%;
     --horror-txt-clr: hsl(155 100% 98%);
-    --accent-clr: var(--fantasy-accent-clr);
-    --txt-clr: var(--fantasy-txt-clr);
+    --horror-txt-values: 155 100% 98%;
     --alpha: 0.7;
 
-    // Miscellaneous
-    --section-margin-block: 5em;
+    // Margin & Padding
     --page-width-margin: 4em;
+    --section-margin-block: 5em;
+    --nav-links-padding-block: 1em;
+    --input-padding-block: 0.5em;
+    --input-padding-inline: 0.75em;
+
+    // Miscellaneous
     --page-max-width: 100rem;
     --logo-max-width: 8rem;
     --socials-max-width: 1.75rem;
-    --drop-shadow-blur: 0.25em;
     --corpus-primary-max-width: 60ch;
+    --drop-shadow-blur: 0.25em;
+    --border-radius: 0.25em;
+    --half-opacity: 0.5;
 }

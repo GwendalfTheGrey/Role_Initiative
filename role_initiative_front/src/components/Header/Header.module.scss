@@ -2,10 +2,13 @@
 
 body::before {
     content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background-color: hsl(var(--secondary-bg-values) / var(--alpha));
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background-color: hsl(var(--primary-bg-values) / var(--alpha));
     opacity: 0;
     pointer-events: none;
     transition: opacity 400ms ease;
@@ -28,6 +31,7 @@ header {
 .primary_nav {
     position: relative;
     display: flex;
+    gap: 2em;
     justify-content: space-between;
     align-items: center;
     padding: 0.75em calc(var(--page-width-margin) / 2);
@@ -53,7 +57,9 @@ header {
         }
         @include hover {
             .primary_nav_logo_dice {
-                filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+                filter: drop-shadow(
+                    0 0 var(--drop-shadow-blur) var(--_accent-clr)
+                );
             }
         }
     }
@@ -63,7 +69,8 @@ header {
         background-color: transparent;
         aspect-ratio: 1;
         fill: var(--_accent-clr);
-        transition: filter 300ms ease-in-out, rotate 400ms cubic-bezier(0.71, 0.04, 0.25, 0.97);
+        transition: filter 300ms ease-in-out,
+            rotate 400ms cubic-bezier(0.71, 0.04, 0.25, 0.97);
         @include hover {
             filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
         }
@@ -79,6 +86,7 @@ header {
         }
     }
     &_links {
+        --alpha: 0.5;
         position: absolute;
         top: 0;
         right: 0;
@@ -89,54 +97,34 @@ header {
         flex-direction: column;
         background-color: var(--primary-bg-clr);
         text-align: center;
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         transition: top 400ms ease-in-out, transform 400ms ease-in-out;
         > * {
-            padding: 1em 0;
+            padding-block: var(--nav-links-padding-block);
+            transition: background-color 300ms ease;
             + * {
                 border-top: 1px solid var(--secondary-bg-clr);
             }
             &:last-child {
                 border-bottom: 1px solid var(--secondary-bg-clr);
             }
+            &:has(.active) {
+                background-color: hsl(
+                    var(--secondary-bg-values) / var(--alpha)
+                );
+            }
         }
-        .user_icon {
-            &_body, &_dice {
-                display: none;
-            }
-            @include m {
-                position: relative;
-                max-width: 2.5rem;
-                &_body {
-                    display: block;
-                    width: 100%;
-                    fill: var(--_txt-clr);
-                }
-                &_dice {
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    width: 100%;
-                    fill: var(--_accent-clr);
-                    transition: filter 300ms ease-in-out;
-                    @include hover {
-                        filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
-                    }
-                }
-                span {
-                    display: none;
-                }
-            }
+        .user_icon_body,
+        .user_icon_dice,
+        .logout_door,
+        .logout_arrow {
+            display: none;
         }
     }
     @include m {
         background-color: transparent;
         box-shadow: none;
-        padding: .75em 0;
+        padding-inline: 0;
         width: calc(100% - var(--page-width-margin));
         &_links {
             position: static;
@@ -153,17 +141,22 @@ header {
             > * + * {
                 margin-left: 1.5em;
             }
-            a {
+            li:has(.active) {
+                background-color: transparent;
+            }
+            a:not(.user_icon, .logout) {
                 position: relative;
                 &::after {
                     content: "";
                     position: absolute;
-                    bottom: -.25em;
+                    bottom: -0.25em;
                     left: 0;
                     height: 2px;
                     background-color: var(--_accent-clr);
                     border-radius: 100vw;
-                    filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+                    filter: drop-shadow(
+                        0 0 var(--drop-shadow-blur) var(--_accent-clr)
+                    );
                 }
                 &.active::after {
                     width: 100%;
@@ -178,6 +171,59 @@ header {
                             width: 100%;
                         }
                     }
+                }
+            }
+            a:is(.user_icon).active .user_icon_dice {
+                filter: drop-shadow(
+                    0 0 var(--drop-shadow-blur) var(--_accent-clr)
+                );
+            }
+            .user_icon {
+                position: relative;
+                max-width: 2.5rem;
+                &_body {
+                    display: block;
+                    width: 100%;
+                    fill: var(--_txt-clr);
+                }
+                &_dice {
+                    display: block;
+                    position: absolute;
+                    inset: 0;
+                    fill: var(--_accent-clr);
+                    transition: filter 300ms ease-in-out;
+                    @include hover {
+                        filter: drop-shadow(
+                            0 0 var(--drop-shadow-blur) var(--_accent-clr)
+                        );
+                    }
+                }
+                span {
+                    display: none;
+                }
+            }
+            .logout {
+                position: relative;
+                max-width: 2rem;
+                &_door {
+                    display: block;
+                    width: 100%;
+                    fill: var(--_txt-clr);
+                }
+                &_arrow {
+                    display: block;
+                    position: absolute;
+                    inset: 0;
+                    fill: var(--_accent-clr);
+                    transition: filter 300ms ease-in-out;
+                    @include hover {
+                        filter: drop-shadow(
+                            0 0 var(--drop-shadow-blur) var(--_accent-clr)
+                        );
+                    }
+                }
+                span {
+                    display: none;
                 }
             }
         }

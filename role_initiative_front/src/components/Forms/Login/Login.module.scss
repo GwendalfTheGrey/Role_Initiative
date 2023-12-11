@@ -1,0 +1,24 @@
+@use "../../../assets/styles/mixins" as *;
+
+.login_form {
+    display: grid;
+    gap: 2em;
+    > :first-child {
+        margin-top: 1em;
+    }
+    &_add_ons {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        > * {
+            cursor: pointer;
+        }
+        span {
+            margin-left: 1em;
+            > span {
+                margin-left: 0;
+                opacity: .5;
+            }
+        }
+    }
+}

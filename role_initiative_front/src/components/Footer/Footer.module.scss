@@ -14,7 +14,8 @@ footer {
     display: grid;
     place-items: center;
     width: fit-content;
-    margin-block: var(--section-margin-block);
+    margin-top: var(--section-margin-block);
+    margin-bottom: calc((var(--section-margin-block) / 3) * 2);
     &_logo {
         position: relative;
         max-width: var(--logo-max-width);
@@ -89,7 +90,7 @@ footer {
             a {
                 margin-top: 0.5em;
                 padding: 0.5em;
-                opacity: 0.5;
+                opacity: var(--half-opacity);
                 transition: opacity 200ms ease;
                 -webkit-tap-highlight-color: transparent;
                 @include hover {

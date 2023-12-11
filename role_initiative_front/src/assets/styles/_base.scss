@@ -11,27 +11,30 @@
 body {
     scroll-behavior: smooth;
     background-color: var(--primary-bg-clr);
-    color: var(--txt-clr);
+    color: var(--_txt-clr);
     font-family: var(--corpus-ff);
     font-size: var(--corpus-fs);
 }
 
 body[data-ttrpg-genre="fantasy"] {
-    --_accent-clr: var(--fantasy-accent-clr, hsl(29, 100%, 50%));
+    --_accent-clr: var(--fantasy-accent-clr, hsl(29 100% 50%));
     --_accent-values: var(--fantasy-accent-values);
-    --_txt-clr: var(--fantasy-txt-clr, hsl(0, 0%, 100%));
+    --_txt-clr: var(--fantasy-txt-clr, hsl(0 0% 100%));
+    --_txt-values: var(--fantasy-txt-values, 0 0% 100%);
 }
 
 body[data-ttrpg-genre="scifi"] {
-    --_accent-clr: var(--scifi-accent-clr, hsl(290, 100%, 50%));
+    --_accent-clr: var(--scifi-accent-clr, hsl(290 100% 50%));
     --_accent-values: var(--scifi-accent-values);
-    --_txt-clr: var(--scifi-txt-clr, hsl(0, 0%, 100%));
+    --_txt-clr: var(--scifi-txt-clr, hsl(0 0% 100%));
+    --_txt-values: var(--scifi-txt-values, 0 0% 100%);
 }
 
 body[data-ttrpg-genre="horror"] {
-    --_accent-clr: var(--horror-accent-clr, hsl(152, 100%, 50%));
+    --_accent-clr: var(--horror-accent-clr, hsl(152 100% 50%));
     --_accent-values: var(--horror-accent-values);
-    --_txt-clr: var(--horror-txt-clr, hsl(0, 0%, 100%));
+    --_txt-clr: var(--horror-txt-clr, hsl(0 0% 100%));
+    --_txt-values: var(--horror-txt-values, 0 0% 100%);
 }
 
 #root {
@@ -39,6 +42,15 @@ body[data-ttrpg-genre="horror"] {
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
     min-height: 100svh;
+}
+
+header a,
+footer a {
+    font-weight: var(--nav-link-fw);
+}
+
+main {
+    align-self: center;
 }
 
 h1,
@@ -57,16 +69,22 @@ img {
     max-width: 100%;
 }
 
-a:focus-visible, button:focus-visible {
-    outline-width: 2px;
-    outline-offset: .25em;
-    outline-color: var(--_txt-clr);
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline-color: var(--_accent-clr);
+}
+
+a:focus-visible,
+button:focus-visible,
+input[type="checkbox"]:focus-visible {
+    outline-offset: 0.375em;
 }
 
 a {
     display: block;
     text-decoration: none;
-    color: var(--txt-clr);
+    color: var(--_txt-clr);
 }
 
 p > a {
@@ -75,6 +93,19 @@ p > a {
 
 li {
     list-style-type: none;
+}
+
+:where(input[type="text"]),
+:where(input[type="email"]),
+:where(input[type="password"]) {
+    caret-color: hsl(var(--_txt-values) / var(--alpha));
+    padding: var(--input-padding-block) var(--input-padding-inline);
+    background-color: var(--primary-bg-clr);
+    border: 1px solid hsl(var(--_txt-values) / var(--alpha));
+    border-radius: var(--border-radius);
+    font-size: var(--corpus-fs);
+    font-family: var(--corpus-ff);
+    color: var(--_txt-clr);
 }
 
 footer {
