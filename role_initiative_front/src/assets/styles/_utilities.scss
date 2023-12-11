@@ -1,3 +1,5 @@
+@use "../../assets/styles/mixins" as *;
+
 .page-width {
     width: calc(100% - var(--page-width-margin));
 }
@@ -12,4 +14,95 @@
 
 .corpus-line-height {
     line-height: 1.5;
+}
+
+.btn {
+    font-size: var(--nav-fs);
+    padding: .5em 1.5em;
+    border-radius: 100vw;
+    cursor: pointer;
+    &_phantom {
+        border: .125em solid var(--_accent-clr);
+        background-color: transparent;
+        color: var(--_accent-clr);
+        filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+        transition: filter 400ms ease, border-color 300ms ease-in-out 100ms, background-color 300ms ease-in-out 100ms, color 300ms ease-in-out 100ms;
+        &:disabled {
+            opacity: var(--half-opacity);
+        }
+        @include hover {
+            filter: none;
+            border-color: var(--_txt-clr);
+            background-color: var(--_txt-clr);
+            color: var(--primary-bg-clr);
+        }
+    }
+}
+
+.input-text {
+    position: relative;
+    input {
+        width: 100%;
+    }
+    span {
+        --_input-padding-block: calc(var(--input-padding-block) / 2);
+        --_input-padding-inline: calc(var(--input-padding-inline) / 2);
+        position: absolute;
+        top: var(--_input-padding-block);
+        left: var(--_input-padding-inline);
+        padding-top: var(--_input-padding-block);
+        padding-inline: var(--_input-padding-inline);
+        border-radius: var(--border-radius);
+        background-color: var(--primary-bg-clr);
+        color: hsl(var(--fantasy-txt-values) / var(--alpha));
+        transition: top 300ms ease, scale 300ms ease;
+    }
+    &:focus-within span,
+    input:not(:placeholder-shown) + span {
+        top: calc(-0.5em - var(--_input-padding-block));
+        scale: 0.9;
+    }
+}
+
+.generic-checkbox {
+    position: relative;
+    display: grid;
+    grid-auto-columns: auto;
+    place-content: center;
+    width: fit-content;
+    cursor: pointer;
+    &::before {
+        content: "\2714";
+        position: absolute;
+        inset: 0;
+        grid-column: 1 / 2;
+        grid-row: 1;
+        text-align: center;
+        font-weight: var(--nav-link-fw);
+        color: var(--primary-bg-clr);
+    }
+    > * {
+        grid-row: 1;
+    }
+    input {
+        appearance: none;
+        width: 1.5em;
+        aspect-ratio: 1;
+        border: 1px solid var(--fantasy-txt-clr);
+        border-radius: var(--border-radius);
+        background-color: var(--secondary-bg-clr);
+        font-size: var(--corpus-fs);
+        &:checked {
+            background-color: var(--fantasy-txt-clr);
+        }
+    }
+    span,
+    a {
+        align-self: center;
+        margin-left: 1em;
+    }
+}
+
+.form-error {
+    opacity: var(--half-opacity);
 }

@@ -1,0 +1,71 @@
+@use "../../../assets/styles/mixins" as *;
+
+.register_form {
+    position: relative;
+    display: grid;
+    gap: 2em;
+    > :first-child {
+        margin-top: 1em;
+    }
+    &_user_type {
+        justify-self: center;
+        display: grid;
+        gap: 2em;
+        padding: var(--input-padding-block) var(--input-padding-inline);
+        border: 1px solid hsl(var(--fantasy-txt-values) / calc(var(--alpha) / 2));
+        border-radius: var(--border-radius);
+        p {
+            margin-bottom: var(--input-padding-block);
+        }
+        &_player {
+            display: grid;
+            &_levels {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: var(--input-padding-block);
+                label {
+                    display: grid;
+                    cursor: pointer;
+                    > * {
+                        grid-area: 1 / 1;
+                    }
+                    span {
+                        padding: var(--input-padding-block) var(--input-padding-inline);
+                        background-color: var(--primary-bg-clr);
+                        border-radius: var(--border-radius);
+                        transition: background-color 100ms ease, color 100ms ease;
+                        
+                    }
+                    input:checked + span {
+                        background-color: var(--fantasy-txt-clr);
+                        color: var(--primary-bg-clr);
+                        
+                    }
+                    input:not(:checked) + span {
+                        @include hover {
+                            background-color: var(--fantasy-txt-clr);
+                            color: var(--primary-bg-clr);
+                        }
+                        
+                    }
+                    input {
+                        appearance: none;
+                        block-size: 100%;
+                        inline-size: 100%;
+                    }
+                }
+            }
+        }
+        &_gm {
+            display: grid;
+            width: fit-content;
+            label {
+                justify-self: center;
+                padding: .75em 1em;
+                background-color: hsl(var(--primary-bg-values) / var(--alpha));
+                border-radius: var(--border-radius);
+            }
+        }
+    }
+}

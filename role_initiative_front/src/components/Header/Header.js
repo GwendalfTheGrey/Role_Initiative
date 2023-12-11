@@ -1,17 +1,23 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import style from "./Header.module.scss";
 import { ReactComponent as LogoText } from "../../assets/images/logo-text.svg";
 import { ReactComponent as LogoDice } from "../../assets/images/logo-dice.svg";
 import { ReactComponent as UserBody } from "../../assets/images/user-silhouette.svg";
 import { ReactComponent as UserDice } from "../../assets/images/user-dice.svg";
+import { ReactComponent as LogoutDoor } from "../../assets/images/logout-door.svg";
+import { ReactComponent as LogoutArrow } from "../../assets/images/logout-arrow.svg";
 import { ReactComponent as Arrow } from "../../assets/images/arrow.svg";
 
 export default function Header() {
-    const user = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
 
     const [ariaExpanded, setAriaExpanded] = useState("false");
+
+    const closeMenu = () => {
+        ariaExpanded === "true" && setAriaExpanded("false");
+    };
 
     const ref = useRef(null);
 
@@ -53,20 +59,20 @@ export default function Header() {
                     aria-expanded={ariaExpanded}
                     onClick={handleExpanded}
                 >
-                    <Arrow/>
+                    <Arrow />
                 </button>
                 <ul className={`${style.primary_nav_links}`} ref={ref}>
                     <li><NavLink
                         className={({ isActive }) => isActive ? `${style.active}` : ``}
                         to="/"
-                        onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
+                        onClick={closeMenu}
                     >
                         Accueil
                     </NavLink></li>
                     <li><NavLink
                         className={({ isActive }) => isActive ? `${style.active}` : ``}
                         to={user ? "fantasy" : "login-register"}
-                        onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
+                        onClick={closeMenu}
                     >
                         {user ? "Fantaisie" : "Connexion/Inscription"}
                     </NavLink></li>
@@ -75,22 +81,50 @@ export default function Header() {
                             <li><NavLink
                                 className={({ isActive }) => isActive ? `${style.active}` : ``}
                                 to="sci-fi"
-                                onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
+                                onClick={closeMenu}
                             >
                                 Sci-fi
                             </NavLink></li>
                             <li><NavLink
                                 className={({ isActive }) => isActive ? `${style.active}` : ``}
                                 to="horror-and-other"
-                                onClick={() => ariaExpanded === "true" && setAriaExpanded("false")}
+                                onClick={closeMenu}
                             >
                                 Horreur/Autre
                             </NavLink></li>
                             <li>
-                                <Link className={`${style.user_icon}`}title="Profil">
-                                    <UserBody className={`${style.user_icon_body}`} />
-                                    <UserDice className={`${style.user_icon_dice}`} />
+                                <NavLink
+                                    title="Profil"
+                                    className={({ isActive }) => isActive ? `${style.active} ${style.user_icon}` : `${style.user_icon}`}
+                                    to="profile"
+                                    onClick={closeMenu}
+                                >
+                                    {
+                                        !user.icon ?
+                                            <>
+                                                <UserBody className={`${style.user_icon_body}`} />
+                                                <UserDice className={`${style.user_icon_dice}`} />
+                                            </> :
+                                            <img src={``} alt={`Avatar de ${user.username}`} />
+                                    }
+
                                     <span>Profil</span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <Link
+                                    title="Déconnexion"
+                                    className={`${style.logout}`}
+                                    onClick={() => {
+                                        logout();
+                                        setTimeout(() => {
+                                            closeMenu();
+                                        }, 2000);
+                                    }}
+                                >
+                                    <LogoutDoor className={`${style.logout_door}`} />
+                                    <LogoutArrow className={`${style.logout_arrow}`} />
+                                    <span>Déconnexion</span>
                                 </Link>
                             </li>
                         </>

@@ -1,0 +1,149 @@
+@use "../../assets/styles/mixins" as *;
+
+.login_register_wrapper {
+    display: grid;
+}
+
+.login_register {
+    display: grid;
+    align-content: start;
+    height: fit-content;
+    margin-block: var(--section-margin-block);
+    &:has(.register) .login {
+        &_visual {
+            display: none;
+        }
+        border-top-right-radius: calc(var(--border-radius) * 2);
+        border-top-left-radius: calc(var(--border-radius) * 2);
+        border-bottom: 1px solid
+            hsl(var(--fantasy-txt-values) / calc(var(--alpha) / 2));
+    }
+    &:has(.login) .register {
+        border-bottom-right-radius: calc(var(--border-radius) * 2);
+        border-bottom-left-radius: calc(var(--border-radius) * 2);
+    }
+    .login:not(:has(+ .register)),
+    &:not(:has(.login)) .register{
+        border-radius: calc(var(--border-radius) * 2);
+    }
+    .login,
+    .register {
+        overflow-y: hidden;
+        display: grid;
+        align-content: start;
+        padding-inline: 1.5em;
+        background-color: var(--secondary-bg-clr);
+        p {
+            line-height: 1.5;
+        }
+        > label {
+            z-index: 1;
+            text-align: center;
+            padding-block: 1em;
+            background-color: var(--secondary-bg-clr);
+            cursor: pointer;
+            &:has(input:checked) + form {
+                margin-top: 0;
+                margin-bottom: 1em;
+                pointer-events: all;
+            }
+            input {
+                appearance: none;
+                &:not(:checked) + span {
+                    opacity: var(--half-opacity);
+                }
+            }
+            span {
+                font-family: var(--title-ff);
+                font-size: var(--title-fs);
+                transition: opacity 500ms ease;
+            }
+        }
+        form {
+            margin-top: -150vh;
+            pointer-events: none;
+            transition: margin-top 500ms ease-in-out;
+            a {
+                text-decoration: underline;
+                transition: color 300ms ease;
+                &:visited {
+                    color: hsl(var(--fantasy-txt-values) / var(--alpha));
+                }
+                @include hover {
+                    color: hsl(var(--fantasy-txt-values) / var(--alpha));
+                }
+            }
+            button {
+                margin-top: 0.5em;
+                justify-self: center;
+            }
+        }
+    }
+    @include l {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2em;
+        &:not(:has(.register)),
+        &:not(:has(.login)) {
+            grid-template-columns: 1fr;
+        }
+        &:not(:has(.login)) .register,
+        &:not(:has(.register)) .login{
+            justify-self: center;
+            width: 100%;
+            max-width: calc(var(--page-max-width) / 2);
+        }
+
+        &:has(.register) .login,
+        .register {
+            grid-template-rows: repeat(2, auto) 1fr;
+            border: none;
+            border-radius: calc(var(--border-radius) * 2);
+            > label {
+                cursor: auto;
+                &:has(input:checked) + form,
+                ~ form {
+                    margin-top: 0;
+                    margin-bottom: 1em;
+                    pointer-events: all;
+                    transition: none;
+                }
+                input:not(:checked) + span {
+                    opacity: 1;
+                }
+                span {
+                    transition: none;
+                }
+            }
+        }
+        &:has(.register) .login_visual {
+            place-self: center;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            width: 100%;
+            max-width: 40rem;
+            svg {
+                grid-row: 1;
+                fill: var(--fantasy-accent-clr);
+                filter: drop-shadow(
+                    0 0 var(--drop-shadow-blur) var(--fantasy-accent-clr)
+                );
+            }
+            svg:first-of-type {
+                grid-column: 1 / 4;
+                height: 60%;
+            }
+            svg:nth-of-type(2) {
+                align-self: center;
+                justify-self: center;
+                grid-column: 3 / 6;
+                height: 80%;
+            }
+            svg:last-of-type {
+                align-self: end;
+                justify-self: end;
+                grid-column: 5 / 8;
+                height: 60%;
+            }
+        }
+    }
+}

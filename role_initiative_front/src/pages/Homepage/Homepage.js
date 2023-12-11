@@ -4,8 +4,8 @@ import HomeConnected from "../../components/HomeConnected/HomeConnected";
 import Home from "../../components/Home/Home";
 
 export default function Homepage() {
-    const user = useContext(AuthContext);
-    
+    const { user } = useContext(AuthContext);
+
     return (
         <main>
             {user ?

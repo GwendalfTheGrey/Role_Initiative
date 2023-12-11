@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Footer() {
-    const user = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     return (
         <footer>
@@ -31,7 +31,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </nav>
-            <p className="page-width corpus-line-height">© Role Initiative 2023 - <Link>Conditions générales</Link> - <Link>Politique de confidentialité</Link> - <Link>Mentions Légales</Link></p>
+            <p className="page-width corpus-line-height">© Role Initiative 2023 - <Link to={"terms-of-service"}>Conditions générales d'utilisation</Link> - <Link to={"privacy-policy"}>Politique de confidentialité</Link> - <Link to={"legal-notices"}>Mentions Légales</Link></p>
         </footer>
     );
 }
