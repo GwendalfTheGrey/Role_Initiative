@@ -8,6 +8,10 @@ const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
 const LoginAndRegister = lazy(() => import("./pages/LoginAndRegister/LoginAndRegister"));
 const AdminLoginAndRegister = lazy(() => import("./pages/LoginAndRegister/AdminLoginAndRegister"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
+const Rooms = lazy(() => import("./pages/Rooms/Rooms"));
+const Fantasy = lazy(() => import("./pages/Rooms/components/Fantasy"));
+const SciFi = lazy(() => import("./pages/Rooms/components/SciFi"));
+const HorrorAndOther = lazy(() => import("./pages/Rooms/components/HorrorAndOther"));
 
 export const router = createBrowserRouter([
     {
@@ -19,32 +23,6 @@ export const router = createBrowserRouter([
             {
                 path: "",
                 element: <Homepage />,
-                children: [
-                    {
-                        path: "fantasy",
-                        // element:
-                        //     <UserProtectedRoute>
-                        //         <Fantasy />
-                        //     </UserProtectedRoute>
-                        // ,
-                    },
-                    {
-                        path: "sci-fi",
-                        // element:
-                        //     <UserProtectedRoute>
-                        //         <SciFi />
-                        //     </UserProtectedRoute>
-                        // ,
-                    },
-                    {
-                        path: "horror-and-other",
-                        // element:
-                        //     <UserProtectedRoute>
-                        //         <HorrorAndOther />
-                        //     </UserProtectedRoute>
-                        // ,
-                    },
-                ]
             },
             {
                 path: "admin",
@@ -67,10 +45,40 @@ export const router = createBrowserRouter([
                 ,
             },
             {
-                path: "profile",
+                path: "profile/:username",
                 element:
                     <UserProtectedRoute>
                         <Profile />
+                    </UserProtectedRoute>
+                ,
+            },
+            {
+                path: "fantasy",
+                element:
+                    <UserProtectedRoute>
+                        <Rooms>
+                            <Fantasy />
+                        </Rooms>
+                    </UserProtectedRoute>
+                ,
+            },
+            {
+                path: "sci-fi",
+                element:
+                    <UserProtectedRoute>
+                        <Rooms>
+                            <SciFi />
+                        </Rooms>
+                    </UserProtectedRoute>
+                ,
+            },
+            {
+                path: "horror-and-other",
+                element:
+                    <UserProtectedRoute>
+                        <Rooms>
+                            <HorrorAndOther />
+                        </Rooms>
                     </UserProtectedRoute>
                 ,
             },

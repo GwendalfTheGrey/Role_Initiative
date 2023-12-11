@@ -7,8 +7,7 @@ router.get("/getLevels", (req, res) => {
         const sqlLevels = "SELECT * FROM levels";
         connection.query(sqlLevels, (err, result) => {
             if(err) throw err;
-            const levels = result;
-            res.json(levels);
+            res.json(result);
         });
     } catch (error) {
         console.log(error);
