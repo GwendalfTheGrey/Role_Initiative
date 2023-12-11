@@ -23,14 +23,14 @@ body[data-ttrpg-genre="fantasy"] {
     --_txt-values: var(--fantasy-txt-values, 0 0% 100%);
 }
 
-body[data-ttrpg-genre="scifi"] {
+body[data-ttrpg-genre="sci-fi"] {
     --_accent-clr: var(--scifi-accent-clr, hsl(290 100% 50%));
     --_accent-values: var(--scifi-accent-values);
     --_txt-clr: var(--scifi-txt-clr, hsl(0 0% 100%));
     --_txt-values: var(--scifi-txt-values, 0 0% 100%);
 }
 
-body[data-ttrpg-genre="horror"] {
+body[data-ttrpg-genre="horror-and-other"] {
     --_accent-clr: var(--horror-accent-clr, hsl(152 100% 50%));
     --_accent-values: var(--horror-accent-values);
     --_txt-clr: var(--horror-txt-clr, hsl(0 0% 100%));

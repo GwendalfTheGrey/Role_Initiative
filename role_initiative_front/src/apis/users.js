@@ -1,7 +1,6 @@
 const API_USERS = "/api/users";
 
 export const createUser = async (newUser) => {
-    console.log("test");
     const response = await fetch(`${API_USERS}/register`, {
         method: "POST",
         headers: {
