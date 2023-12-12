@@ -30,7 +30,6 @@ export const signIn = async (values) => {
     });
     const backResponse = await response.json();
     if (response.ok) {
-        console.log(backResponse);
         return backResponse;
     } else {
         if (backResponse) {

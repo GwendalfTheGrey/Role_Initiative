@@ -13,8 +13,8 @@ export default function Home() {
     const navigate = useNavigate();
 
     const redirection = () => {
-        navigate("/login-register")
-    }
+        navigate("/login-register");
+    };
 
     return (
         <>
@@ -23,7 +23,7 @@ export default function Home() {
                     <div className={`${style.hero_wrapper_content}`}>
                         <h1 className={`${style.hero_wrapper_content_title}`}>LE PORTAIL VERS D'AUTRES PLANS</h1>
                         <p className={`${style.hero_wrapper_content_paragraph}`}>Role Initiative est une plateforme qui permet à quiconque de commencer ou continuer une partie de jeu de rôle et ce quelque soit votre niveau.</p>
-                        <button onClick={redirection} className="btn btn_phantom" type="button">Rejoindre</button>
+                        <button onClick={redirection} className="btn btn-phantom" type="button">Rejoindre</button>
                     </div>
                     <D20 className={`${style.hero_wrapper_visual}`} />
                 </div>
@@ -63,9 +63,9 @@ export default function Home() {
                             <h2>Role Initiative</h2>
                             <D20 />
                         </div>
-                        <p className="corpus-line-height">Notre existence à pour seul but de permettre à ceux et celles qui veulent commencer ou continuer leur voyage dans l'univers des jeux de rôle de ne pas se trouver limités par l'absence d'autres joueurs aux alentours, ou encore par le fait qu'un certain niveau soit attendu.</p>
-                        <p className="corpus-line-height">Les salons ont chacun leur niveau attendu pour la participation à une partie. Les nouveaux joueurs peuvent donc ainsi choisir un salon qui leur est adapté avec un maître du jeu qui sera là pour les guider, et les joueurs plus adeptes pourront quant à eux se retrouver avec des personnes tout autant expérimentées.</p>
-                        <button onClick={redirection} className="btn btn_phantom" type="button">Rejoignez-nous</button>
+                        <p>Notre existence à pour seul but de permettre à ceux et celles qui veulent commencer ou continuer leur voyage dans l'univers des jeux de rôle de ne pas se trouver limités par l'absence d'autres joueurs aux alentours, ou encore par le fait qu'un certain niveau soit attendu.</p>
+                        <p>Les salons ont chacun leur niveau attendu pour la participation à une partie. Les nouveaux joueurs peuvent donc ainsi choisir un salon qui leur est adapté avec un maître du jeu qui sera là pour les guider, et les joueurs plus adeptes pourront quant à eux se retrouver avec des personnes tout autant expérimentées.</p>
+                        <button onClick={redirection} className="btn btn-phantom" type="button">Rejoignez-nous</button>
                     </div>
                 </article>
             </section>

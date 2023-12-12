@@ -13,20 +13,22 @@
 }
 
 .corpus-line-height {
-    line-height: 1.5;
+    line-height: var(--corpus-line-height);
 }
 
 .btn {
     font-size: var(--nav-fs);
-    padding: .5em 1.5em;
+    padding: 0.5em 1.5em;
     border-radius: 100vw;
     cursor: pointer;
-    &_phantom {
-        border: .125em solid var(--_accent-clr);
+    &-phantom {
+        border: 0.125em solid var(--_accent-clr);
         background-color: transparent;
         color: var(--_accent-clr);
         filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
-        transition: filter 400ms ease, border-color 300ms ease-in-out 100ms, background-color 300ms ease-in-out 100ms, color 300ms ease-in-out 100ms;
+        transition: filter 400ms ease, border-color 300ms ease-in-out 100ms,
+            background-color 300ms ease-in-out 100ms,
+            color 300ms ease-in-out 100ms;
         &:disabled {
             opacity: var(--half-opacity);
         }
@@ -105,4 +107,99 @@
 
 .form-error {
     opacity: var(--half-opacity);
+}
+
+.room {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 1em;
+    padding: 1.5em 1.75em;
+    border-radius: calc(var(--border-radius) * 2);
+    background-color: var(--secondary-bg-clr);
+    &-user {
+        align-self: flex-start;
+        display: grid;
+        gap: 0.25em;
+        min-width: 3em;
+        max-width: 5em;
+        &-icon {
+            position: relative;
+            &-body {
+                fill: var(--_txt-clr);
+            }
+            &-dice {
+                position: absolute;
+                inset: 0;
+                fill: var(--_accent-clr);
+            }
+        }
+        p {
+            justify-self: center;
+            font-size: var(--legend-fs);
+        }
+    }
+    &-content {
+        --alpha: var(--half-opacity);
+        padding-left: 0.5em;
+        border-left: 1px solid hsl(var(--primary-bg-values) / var(--alpha));
+        h2 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+        &-details {
+            p[data-ttrpg-genre="fantasy"] {
+                --_accent-clr: var(--fantasy-accent-clr, hsl(29 100% 50%));
+            }
+            p[data-ttrpg-genre="sci-fi"] {
+                --_accent-clr: var(--scifi-accent-clr, hsl(290 100% 50%));
+            }
+            p[data-ttrpg-genre="horror-and-other"] {
+                --_accent-clr: var(--horror-accent-clr, hsl(152 100% 50%));
+            }
+            :first-child {
+                color: var(--_accent-clr);
+            }
+            * {
+                padding-top: .5em;
+                font-size: var(--legend-fs);
+            }
+            p:has(span) {
+                font-style: italic;
+            }
+            + p {
+                margin-top: 1em;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 5;
+                overflow: hidden;
+            }
+        }
+    }
+    &-informations {
+        grid-column: 1 / -1;
+        display: grid;
+        align-items: center;
+        margin-top: 1em;
+        button, a {
+            grid-area: 1 / 1;
+        }
+        button {
+            justify-self: start;
+        }
+        a {
+            justify-self: end;
+            // text-align: end;
+            font-size: var(--nav-fs);
+            color: var(--_accent-clr);
+            transition: text-decoration 300ms ease;
+            @include hover {
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-decoration-color: var(--_txt-clr);
+            }
+        }
+    }
 }

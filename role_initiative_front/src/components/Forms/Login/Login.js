@@ -85,7 +85,7 @@ export default function Login({ adminSigningScreen = false }) {
                 <p className="form-error">{errors.generic.message}</p>
             )}
 
-            <button disabled={isSubmitting} className="btn btn_phantom">
+            <button disabled={isSubmitting} className="btn btn-phantom">
                 Se connecter
             </button>
         </form>

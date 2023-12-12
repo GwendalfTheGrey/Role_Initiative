@@ -75,7 +75,7 @@ router.post("/login", async (req, res) => {
                         algorithm: "RS256",
                     });
                     res.cookie("Role_Initiative_Token", token, { maxAge: 1000 * 60 * 60 * 24 });
-                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data && null, GM: result[0].GM === 1 ? true : false, admin: result[0].admin === 1 ? true : false});
+                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1});
                 } else if (bcrypt.compareSync(passwordLogin, result[0].userPassword) && stayConnected) {
                     const token = jsonwebtoken.sign({}, key, {
                         subject: result[0].idUser.toString(),
@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
                         algorithm: "RS256",
                     });
                     res.cookie("Role_Initiative_Token", token, { maxAge: 1000 * 60 * 60 * 24 * 30 });
-                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data && null, GM: result[0].GM === 1 ? true : false, admin: result[0].admin === 1 ? true : false});
+                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1});
                 } else {
                     res.status(400).json("Email et/ou mot de passe incorrectes");
                 }
@@ -107,10 +107,10 @@ router.get("/connectedUser", (req, res) => {
             // Instead of key her should be the keyPub, somehow with keyPub(public key) there is an error stating "secretOrPublicKey must be an asymmetric key when using RS256"
             // After a long search and many verifications no working solution using keyPub(public key) was found, somehow just the key(private key) works
             const selectSql =
-                "SELECT * FROM users WHERE idUser = ?";
+                "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE idUser = ?";
             connection.query(selectSql, [decodedToken.sub], (err, result) => {
                 if (err) throw err;
-                const connectedUser = { ...result[0], userPassword: "", icon: !result[0].icon ? "" : "" };
+                const connectedUser = { ...result[0], userPassword: "", icon: !result[0].icon.data ? false : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1};
                 if (connectedUser) {
                     res.json(connectedUser);
                 } else {
