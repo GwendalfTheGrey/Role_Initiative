@@ -1,6 +1,6 @@
-import { useFetchHomeRooms } from "../../assets/hooks/useFetchHomeRooms";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
+import { useFetchHomeRooms } from "../../hooks/useFetchHomeRooms";
 import style from "./HomeConnected.module.scss";
 import Room from "../Room/Room";
 
@@ -14,6 +14,7 @@ export default function HomeConnected() {
             {rooms?.map((room, index) => (
                 <Room key={room.idRoom} room={room} />
             ))}
+            
             {user.admin || user.GM ?
                 <div className="add-room"></div> :
                 ""

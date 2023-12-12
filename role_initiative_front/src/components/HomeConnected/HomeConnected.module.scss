@@ -1,0 +1,13 @@
+@use "../../assets/styles/mixins" as *;
+
+.rooms_wrapper {
+    display: grid;
+    gap: 2em;
+    margin-block: calc(var(--section-margin-block) / 2);
+    @include m {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @include xl {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

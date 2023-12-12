@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { getRooms } from "../../apis/rooms";
+import { getUsersJoined } from "../apis/rooms";
 
-export const useFetchHomeRooms = (idGenre = 0) => {
+export const useFetchUsersJoined = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const backData = await getRooms(idGenre);
+            const backData = await getUsersJoined();
             setData(backData);
         };
         fetchData();
-    }, [idGenre]);
+    }, []);
 
     return [data, setData];
 };

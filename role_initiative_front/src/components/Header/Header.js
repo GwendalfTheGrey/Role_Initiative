@@ -105,7 +105,7 @@ export default function Header() {
                                                 <UserBody className={`${style.user_icon_body}`} />
                                                 <UserDice className={`${style.user_icon_dice}`} />
                                             </> :
-                                            <img src={``} alt={`Avatar de ${user.username}`} />
+                                            <img src={``} alt={`Avatar de ${user.username}`} className={`${style.user_icon_avatar}`} />
                                     }
 
                                     <span>Profil</span>

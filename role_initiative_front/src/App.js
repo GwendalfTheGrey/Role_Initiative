@@ -5,15 +5,14 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import { LevelsProvider } from "./context/LevelsContext";
 
-
 function App() {
   return (
     <AuthProvider>
       <Header />
       <LevelsProvider>
-        <Suspense>
-          <Outlet />
-        </Suspense>
+          <Suspense>
+            <Outlet />
+          </Suspense>
       </LevelsProvider>
       <ScrollRestoration />
       <Footer />

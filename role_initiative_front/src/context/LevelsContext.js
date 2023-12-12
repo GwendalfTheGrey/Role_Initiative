@@ -8,11 +8,11 @@ export const LevelsProvider = ({ children }) => {
 
     useEffect(() => {
         const levelList = async () => {
-            const levelsBack = await getLevels()
-            setLevels(levelsBack)
-        }
-        levelList()
-    }, [])
+            const levelsBack = await getLevels();
+            setLevels(levelsBack);
+        };
+        levelList();
+    }, []);
 
     return (
         <LevelsContext.Provider value={levels}>

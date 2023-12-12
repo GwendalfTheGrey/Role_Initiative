@@ -57,7 +57,7 @@ h1,
 h2,
 h3 {
     font-family: var(--title-ff);
-    line-height: 1.2;
+    line-height: var(--title-line-height);
 }
 
 main h2 {
@@ -93,6 +93,10 @@ p > a {
 
 li {
     list-style-type: none;
+}
+
+p {
+    line-height: var(--corpus-line-height);
 }
 
 :where(input[type="text"]),

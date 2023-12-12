@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFetchHomeRooms } from "../../../assets/hooks/useFetchHomeRooms";
+import { useFetchHomeRooms } from "../../../hooks/useFetchHomeRooms";
 import Room from "../../../components/Room/Room";
 
 export default function Fantasy() {

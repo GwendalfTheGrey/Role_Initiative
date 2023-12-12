@@ -106,7 +106,7 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
                 <span>Confirmer le mot de passe</span>
                 {errors.confirmPassword && <p className="form-error">{errors.confirmPassword.message}</p>}
             </label>
-            
+
             <div className={`${style.register_form_user_type}`}>
                 <div className={`${style.register_form_user_type_player}`}>
                     <p>Niveau de joueur : </p>
@@ -131,7 +131,7 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
                     </label>
                 </div>
             </div>
-            
+
             <label className="generic-checkbox" htmlFor="privacyPolicy">
                 <input id="privacyPolicy" name="privacyPolicy" type="checkbox" required {...register("privacyPolicy")} />
                 <Link to={"privacy-policy"}>Politique de confidentialité</Link>
@@ -145,7 +145,7 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
             </label>
             {errors.generic && <p className="form-error">{errors.generic.message}</p>}
 
-            <button disabled={isSubmitting} className="btn btn_phantom">
+            <button disabled={isSubmitting} className="btn btn-phantom">
                 S'inscrire
             </button>
         </form>

@@ -1,5 +1,10 @@
 const API_ROOMS = "/api/rooms";
 
+export const getUsersJoined = async () => {
+    const response = await fetch(`${API_ROOMS}/getUsersJoined`);
+    return await response.json();
+};
+
 export const getRooms = async (idGenre) => {
     if (!idGenre) {
         const response = await fetch(`${API_ROOMS}/getHomeRooms`);
