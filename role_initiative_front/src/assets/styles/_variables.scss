@@ -45,21 +45,25 @@
     --horror-txt-clr: hsl(155 100% 98%);
     --horror-txt-values: 155 100% 98%;
     --alpha: 0.7;
+    --half-alpha: calc(var(--alpha) / 2);
 
     // Margin & Padding
     --page-width-margin: 4em;
     --section-margin-block: 5em;
+    --half-section-margin-block: calc(var(--section-margin-block) / 2);
     --nav-links-padding-block: 1em;
     --input-padding-block: 0.5em;
     --input-padding-inline: 0.75em;
 
     // Miscellaneous
     --page-max-width: 100rem;
+    --half-page-max-width: calc(var(--page-max-width) / 2);
     --logo-max-width: 8rem;
     --socials-max-width: 1.75rem;
     --corpus-primary-max-width: 60ch;
     --drop-shadow-blur: 0.25em;
     --border-radius: 0.25em;
+    --double-border-radius: calc(var(--border-radius) * 2);
     --half-opacity: 0.5;
     --title-line-height: 1.2;
     --corpus-line-height: 1.5;

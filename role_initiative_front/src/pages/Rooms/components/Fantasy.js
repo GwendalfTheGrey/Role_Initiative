@@ -1,24 +1,27 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useFetchHomeRooms } from "../../../hooks/useFetchHomeRooms";
+import { AuthContext } from "../../../context/AuthContext";
 import Room from "../../../components/Room/Room";
+import Loading from "../../../components/Loading/Loading";
+import AddRoomButton from "../../../components/AddRoomButton/AddRoomButton";
 
 export default function Fantasy() {
-    const [fantasyRooms, setFantasyRooms] = useFetchHomeRooms(1);
+    const { user } = useContext(AuthContext);
 
-    useEffect(() => {
-        const body = document.querySelector("body");
-        const bodyGenreAttribute = body.getAttribute("data-ttrpg-genre");
-        if (bodyGenreAttribute === "fantasy") {
-            return;
-        } else {
-            return body.setAttribute("data-ttrpg-genre", "fantasy");
-        }
-    });
+    const [[fantasyRooms, setFantasyRooms], isLoading] = useFetchHomeRooms(1);
+
     return (
-        <>
-            {fantasyRooms?.map((room, index) => (
-                <Room key={room.idRoom} room={room} />
-            ))}
-        </>
+        isLoading ?
+            <Loading />
+            :
+            <>
+                {fantasyRooms?.map((room) => (
+                    <Room key={room.idRoom} room={room} fantasyRooms={fantasyRooms} setFantasyRooms={setFantasyRooms} />
+                ))}
+                {user.admin || user.GM ?
+                    <AddRoomButton /> :
+                    ""
+                }
+            </>
     );
 }

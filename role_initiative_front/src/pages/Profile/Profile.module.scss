@@ -1,0 +1,112 @@
+@use "../../assets/styles/mixins" as *;
+
+main:has(.profile) {
+    margin-block: var(--section-margin-block);
+    > * + * {
+        margin-top: 2em;
+    }
+}
+
+.profile {
+    display: grid;
+    gap: 2em;
+    max-width: var(--half-page-max-width);
+    border-radius: var(--double-border-radius);
+    background-color: var(--secondary-bg-clr);
+    padding: 1em 1.5em;
+    h2 {
+        justify-self: center;
+        text-align: center;
+    }
+    &_form {
+        display: grid;
+        gap: 2em;
+        &_user {
+            margin-top: -1em;
+            justify-self: center;
+            display: grid;
+            gap: 0.25em;
+            width: 4em;
+            &_icon {
+                position: relative;
+                &_body {
+                    fill: var(--_txt-clr);
+                }
+                &_dice {
+                    position: absolute;
+                    inset: 0;
+                    fill: var(--_accent-clr);
+                }
+            }
+        }
+        button {
+            justify-self: center;
+        }
+    }
+}
+
+.player,
+.gm,
+.admin {
+    display: grid;
+    gap: 1em;
+    max-width: var(--half-page-max-width);
+    border-radius: var(--double-border-radius);
+    background-color: var(--secondary-bg-clr);
+    padding: 1em 1.5em;
+    &_room {
+        display: grid;
+        gap: 1em;
+        padding: 1em 1.5em;
+        border-radius: var(--double-border-radius);
+        background-color: hsl(var(--primary-bg-values) / var(--alpha));
+        &_info {
+            &_addon {
+                display: flex;
+                flex-direction: column;
+                p[data-ttrpg-genre="fantasy"] {
+                    --_accent-clr: var(--fantasy-accent-clr, hsl(29 100% 50%));
+                }
+                p[data-ttrpg-genre="sci-fi"] {
+                    --_accent-clr: var(--scifi-accent-clr, hsl(290 100% 50%));
+                }
+                p[data-ttrpg-genre="horror-and-other"] {
+                    --_accent-clr: var(--horror-accent-clr, hsl(152 100% 50%));
+                }
+                p {
+                    margin-top: 0.5em;
+                    font-size: var(--legend-fs);
+                }
+                p:has(span) {
+                    font-style: italic;
+                }
+                p[data-ttrpg-genre],
+                p > span {
+                    color: var(--_accent-clr);
+                }
+                @include s {
+                    flex-direction: row;
+                    justify-content:  space-between;
+                }
+            }
+        }
+        p[data-ongoing="true"] {
+            color: var(--_accent-clr);
+            filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+        }
+        p[data-ongoing="false"] {
+            color: hsl(var(--_txt-values) / var(--alpha));
+            filter: none;
+        }
+        &_btns {
+            justify-self: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1em;
+            @include s {
+                justify-self: end;
+            }
+        }
+    }
+}

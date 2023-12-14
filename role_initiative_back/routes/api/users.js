@@ -64,7 +64,7 @@ router.post("/register", (req, res) => {
 router.post("/login", async (req, res) => {
     const { emailLogin, passwordLogin, stayConnected, admin } = req.body;
     const sqlVerify = admin ? "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE admin = 1 AND email = ?"
-    : "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE admin = 0 AND email = ?";
+        : "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE admin = 0 AND email = ?";
     connection.query(sqlVerify, [emailLogin], (err, result) => {
         try {
             if (result.length > 0) {
@@ -75,7 +75,7 @@ router.post("/login", async (req, res) => {
                         algorithm: "RS256",
                     });
                     res.cookie("Role_Initiative_Token", token, { maxAge: 1000 * 60 * 60 * 24 });
-                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1});
+                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1 });
                 } else if (bcrypt.compareSync(passwordLogin, result[0].userPassword) && stayConnected) {
                     const token = jsonwebtoken.sign({}, key, {
                         subject: result[0].idUser.toString(),
@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
                         algorithm: "RS256",
                     });
                     res.cookie("Role_Initiative_Token", token, { maxAge: 1000 * 60 * 60 * 24 * 30 });
-                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1});
+                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1 });
                 } else {
                     res.status(400).json("Email et/ou mot de passe incorrectes");
                 }
@@ -101,16 +101,18 @@ router.get("/connectedUser", (req, res) => {
     const { Role_Initiative_Token } = req.cookies;
     if (Role_Initiative_Token) {
         try {
-            const decodedToken = jsonwebtoken.verify(Role_Initiative_Token, key, {
-                algorithms: "RS256"
-            });
-            // Instead of key her should be the keyPub, somehow with keyPub(public key) there is an error stating "secretOrPublicKey must be an asymmetric key when using RS256"
-            // After a long search and many verifications no working solution using keyPub(public key) was found, somehow just the key(private key) works
+            const keyPubString = keyPub.toString("utf16le");
+            const decodedToken = jsonwebtoken.verify(
+                Role_Initiative_Token,
+                keyPubString,
+                {
+                    algorithms: "RS256",
+                });
             const selectSql =
                 "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE idUser = ?";
             connection.query(selectSql, [decodedToken.sub], (err, result) => {
                 if (err) throw err;
-                const connectedUser = { ...result[0], userPassword: "", icon: !result[0].icon.data ? false : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1};
+                const connectedUser = { ...result[0], userPassword: "", icon: !result[0].icon.data ? false : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1 };
                 if (connectedUser) {
                     res.json(connectedUser);
                 } else {
@@ -130,6 +132,45 @@ router.delete("/logout", (req, res) => {
     res.clearCookie("Role_Initiative_Token" || "Role_Initiative_Extended_Token");
     console.log("Disconnecting");
     res.end();
+});
+
+router.get("/getUserJoinedRoom/:idUser/:idRoom", (req, res) => {
+    try {
+        const { idUser, idRoom } = req.params;
+        const GMRoomsProfileSql = "SELECT * FROM usersjoinrooms WHERE idUser = ? AND idRoom = ?";
+        connection.query(GMRoomsProfileSql, [idUser, idRoom], (err, result) => {
+            if (err) throw err;
+            res.json(result);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post("/userJoinsRoom", (req, res) => {
+    try {
+        const { idUser, idRoom } = req.body;
+        const userJoinsRoomSql = "INSERT INTO usersjoinrooms (idUser, idRoom) VALUES (?, ?)";
+        connection.query(userJoinsRoomSql, [idUser, idRoom], (err, result) => {
+            if (err) throw err;
+            res.json(req.body)
+        })
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.delete("/userLeavesRoom", (req, res) => {
+    try {
+        const { idUser, idRoom } = req.body;
+        const userLeavesRoomSql = "DELETE FROM usersjoinrooms WHERE idUser = ? AND idRoom = ?";
+        connection.query(userLeavesRoomSql, [idUser, idRoom], (err, result) => {
+            if (err) throw err;
+            res.end()
+        })
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 module.exports = router;

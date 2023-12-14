@@ -1,24 +1,27 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useFetchHomeRooms } from "../../../hooks/useFetchHomeRooms";
+import { AuthContext } from "../../../context/AuthContext";
 import Room from "../../../components/Room/Room";
+import Loading from "../../../components/Loading/Loading";
+import AddRoomButton from "../../../components/AddRoomButton/AddRoomButton";
 
 export default function SciFi() {
-    const [sciFiRooms, setSciFiRooms] = useFetchHomeRooms(2);
+    const { user } = useContext(AuthContext);
 
-    useEffect(() => {
-        const body = document.querySelector("body");
-        const bodyGenreAttribute = body.getAttribute("data-ttrpg-genre");
-        if (bodyGenreAttribute === "sci-fi") {
-            return;
-        } else {
-            return body.setAttribute("data-ttrpg-genre", "sci-fi");
-        }
-    });
+    const [[sciFiRooms, setSciFiRooms], isLoading] = useFetchHomeRooms(2);
+
     return (
-        <>
-            {sciFiRooms?.map((room, index) => (
-                <Room key={room.idRoom} room={room} />
-            ))}
-        </>
+        isLoading ?
+            <Loading />
+            :
+            <>
+                {sciFiRooms?.map((room) => (
+                    <Room key={room.idRoom} room={room} sciFiRooms={sciFiRooms} setSciFiRooms={setSciFiRooms} />
+                ))}
+                {user.admin || user.GM ?
+                    <AddRoomButton /> :
+                    ""
+                }
+            </>
     );
 }

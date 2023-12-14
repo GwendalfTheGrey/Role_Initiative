@@ -20,3 +20,55 @@ export const getRooms = async (idGenre) => {
         return await response.json();
     }
 };
+
+export const getRoomDetails = async (idRoom) => {
+    const response = await fetch(`${API_ROOMS}/getRoomDetails/${idRoom}`);
+    return await response.json();
+};
+
+export const getAllRoomsProfile = async () => {
+    const response = await fetch(`${API_ROOMS}/getAllRoomsProfile`);
+    return await response.json();
+};
+
+export const getGMRoomsProfile = async (idUser) => {
+    const response = await fetch(`${API_ROOMS}/getGMRoomsProfile/${idUser}`);
+    return await response.json();
+};
+
+export const getPlayerRoomsProfile = async (idUser) => {
+    const response = await fetch(`${API_ROOMS}/getPlayerRoomsProfile/${idUser}`);
+    return await response.json();
+};
+
+export const changeOngoing = async (params) => {
+    const response = await fetch(`${API_ROOMS}/roomDetails/changeOngoing`, {
+        method: "PATCH",
+        body: JSON.stringify(params),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (response.ok) {
+        return await response.json();
+    }
+};
+
+export const createRoom = async (values) => {
+    const response = await fetch(`${API_ROOMS}/createRoom`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    if (response.ok) {
+        return await response.json();
+    }
+}
+
+export const deleteRoom = async (idRoom) => {
+    const response = await fetch(`${API_ROOMS}/deleteRoom/${idRoom}`, {
+        method: "DELETE",
+    });
+}

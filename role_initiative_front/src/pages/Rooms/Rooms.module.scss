@@ -3,7 +3,7 @@
 .rooms_wrapper {
     display: grid;
     gap: 2em;
-    margin-block: calc(var(--section-margin-block) / 2);
+    margin-block: var(--section-margin-block);
     @include m {
         grid-template-columns: repeat(2, 1fr);
     }

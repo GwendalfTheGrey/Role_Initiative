@@ -13,18 +13,18 @@
         &_visual {
             display: none;
         }
-        border-top-right-radius: calc(var(--border-radius) * 2);
-        border-top-left-radius: calc(var(--border-radius) * 2);
+        border-top-right-radius: var(--double-border-radius);
+        border-top-left-radius: var(--double-border-radius);
         border-bottom: 1px solid
-            hsl(var(--fantasy-txt-values) / calc(var(--alpha) / 2));
+            hsl(var(--fantasy-txt-values) / var(--half-alpha));
     }
     &:has(.login) .register {
-        border-bottom-right-radius: calc(var(--border-radius) * 2);
-        border-bottom-left-radius: calc(var(--border-radius) * 2);
+        border-bottom-right-radius: var(--double-border-radius);
+        border-bottom-left-radius: var(--double-border-radius);
     }
     .login:not(:has(+ .register)),
-    &:not(:has(.login)) .register{
-        border-radius: calc(var(--border-radius) * 2);
+    &:not(:has(.login)) .register {
+        border-radius: var(--double-border-radius);
     }
     .login,
     .register {
@@ -87,17 +87,17 @@
             grid-template-columns: 1fr;
         }
         &:not(:has(.login)) .register,
-        &:not(:has(.register)) .login{
+        &:not(:has(.register)) .login {
             justify-self: center;
             width: 100%;
-            max-width: calc(var(--page-max-width) / 2);
+            max-width: var(--half-page-max-width);
         }
 
         &:has(.register) .login,
         .register {
             grid-template-rows: repeat(2, auto) 1fr;
             border: none;
-            border-radius: calc(var(--border-radius) * 2);
+            border-radius: var(--double-border-radius);
             > label {
                 cursor: auto;
                 &:has(input:checked) + form,
