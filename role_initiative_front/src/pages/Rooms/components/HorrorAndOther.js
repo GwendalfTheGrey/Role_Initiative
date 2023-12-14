@@ -1,24 +1,27 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useFetchHomeRooms } from "../../../hooks/useFetchHomeRooms";
+import { AuthContext } from "../../../context/AuthContext";
 import Room from "../../../components/Room/Room";
+import Loading from "../../../components/Loading/Loading";
+import AddRoomButton from "../../../components/AddRoomButton/AddRoomButton";
 
 export default function HorrorAndOther() {
-    const [horrorAndOtherRooms, setHorrorAndOtherRooms] = useFetchHomeRooms(3);
+    const { user } = useContext(AuthContext);
 
-    useEffect(() => {
-        const body = document.querySelector("body");
-        const bodyGenreAttribute = body.getAttribute("data-ttrpg-genre");
-        if (bodyGenreAttribute === "horror-and-other") {
-            return;
-        } else {
-            return body.setAttribute("data-ttrpg-genre", "horror-and-other");
-        }
-    });
+    const [[horrorAndOtherRooms, setHorrorAndOtherRooms], isLoading] = useFetchHomeRooms(3);
+
     return (
-        <>
-            {horrorAndOtherRooms?.map((room, index) => (
-                <Room key={room.idRoom} room={room} />
-            ))}
-        </>
+        isLoading ?
+            <Loading />
+            :
+            <>
+                {horrorAndOtherRooms?.map((room) => (
+                    <Room key={room.idRoom} room={room} horrorAndOtherRooms={horrorAndOtherRooms} setHorrorAndOtherRooms={setHorrorAndOtherRooms} />
+                ))}
+                {user.admin || user.GM ?
+                    <AddRoomButton /> :
+                    ""
+                }
+            </>
     );
 }

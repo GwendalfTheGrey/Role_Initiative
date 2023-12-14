@@ -4,6 +4,7 @@ import App from "./App";
 import { userLoader } from "./loaders/userLoader";
 import NoUserProtectedRoute from "./components/ProtectedRoutes/NoUserProtectedRoute";
 import UserProtectedRoute from "./components/ProtectedRoutes/UserProtectedRoute";
+import AdminGMProtectedRoute from "./components/ProtectedRoutes/AdminGMProtectedRoute";
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
 const LoginAndRegister = lazy(() => import("./pages/LoginAndRegister/LoginAndRegister"));
 const AdminLoginAndRegister = lazy(() => import("./pages/LoginAndRegister/AdminLoginAndRegister"));
@@ -12,84 +13,173 @@ const Rooms = lazy(() => import("./pages/Rooms/Rooms"));
 const Fantasy = lazy(() => import("./pages/Rooms/components/Fantasy"));
 const SciFi = lazy(() => import("./pages/Rooms/components/SciFi"));
 const HorrorAndOther = lazy(() => import("./pages/Rooms/components/HorrorAndOther"));
+const Details = lazy(() => import("./pages/Details/Details"));
+const NewRoom = lazy(() => import("./pages/NewRoom/NewRoom"));
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         loader: userLoader,
-        // errorElement: ,
         children: [
             {
                 path: "",
-                element: <Homepage />,
+                children: [
+                    {
+                        path: "",
+                        element: <Homepage />,
+                    },
+                    {
+                        path: "profile/:idUser/:username",
+                        element:
+                            <UserProtectedRoute>
+                                <Profile />
+                            </UserProtectedRoute>
+                        ,
+                    },
+                    {
+                        path: "admin",
+                        element:
+                            <NoUserProtectedRoute>
+                                <AdminLoginAndRegister />
+                            </NoUserProtectedRoute>
+                        ,
+                        loader: async () => {
+                            const response = await fetch("/api/users/checkAdmin");
+                            return await response.json();
+                        },
+                    },
+                    {
+                        path: "login-register",
+                        element:
+                            <NoUserProtectedRoute>
+                                <LoginAndRegister />
+                            </NoUserProtectedRoute>
+                        ,
+                    },
+                    {
+                        path: "fantasy",
+                        children: [
+                            {
+                                path: "",
+                                element:
+                                    <UserProtectedRoute>
+                                        <Rooms>
+                                            <Fantasy />
+                                        </Rooms>
+                                    </UserProtectedRoute>
+                                ,
+                            },
+                            {
+                                path: "room/:idRoom/:title",
+                                element:
+                                    <UserProtectedRoute>
+                                        <Details />
+                                    </UserProtectedRoute>
+                                ,
+                            },
+                            {
+                                path: "new-room",
+                                element:
+                                    <AdminGMProtectedRoute>
+                                        <NewRoom />
+                                    </AdminGMProtectedRoute>
+                                ,
+                            },
+                        ],
+                    },
+                    {
+                        path: "sci-fi",
+                        children: [
+                            {
+                                path: "",
+                                element:
+                                    <UserProtectedRoute>
+                                        <Rooms>
+                                            <SciFi />
+                                        </Rooms>
+                                    </UserProtectedRoute>
+                                ,
+                            },
+                            {
+                                path: "room/:idRoom/:title",
+                                element:
+                                    <UserProtectedRoute>
+                                        <Details />
+                                    </UserProtectedRoute>
+                                ,
+                            },
+                            {
+                                path: "new-room",
+                                element:
+                                    <AdminGMProtectedRoute>
+                                        <NewRoom />
+                                    </AdminGMProtectedRoute>
+                                ,
+                            },
+                        ],
+                    },
+                    {
+                        path: "horror-and-other",
+                        children: [
+                            {
+                                path: "",
+                                element:
+                                    <UserProtectedRoute>
+                                        <Rooms>
+                                            <HorrorAndOther />
+                                        </Rooms>
+                                    </UserProtectedRoute>
+                                ,
+                            },
+                            {
+                                path: "room/:idRoom/:title",
+                                element:
+                                    <UserProtectedRoute>
+                                        <Details />
+                                    </UserProtectedRoute>
+                                ,
+                            },
+                            {
+                                path: "new-room",
+                                element:
+                                    <AdminGMProtectedRoute>
+                                        <NewRoom />
+                                    </AdminGMProtectedRoute>
+                                ,
+                            },
+                        ],
+                    },
+                    {
+                        path: "room/:idRoom/:title",
+                        element:
+                            <UserProtectedRoute>
+                                <Details />
+                            </UserProtectedRoute>
+                        ,
+                    },
+                    {
+                        path: "new-room",
+                        element:
+                            <AdminGMProtectedRoute>
+                                <NewRoom />
+                            </AdminGMProtectedRoute>
+                        ,
+                    },
+                ],
             },
             {
-                path: "admin",
-                element:
-                    <NoUserProtectedRoute>
-                        <AdminLoginAndRegister />
-                    </NoUserProtectedRoute>
-                ,
-                loader: async () => {
-                    const response = await fetch("/api/users/checkAdmin");
-                    return await response.json();
-                },
-            },
-            {
-                path: "login-register",
-                element:
-                    <NoUserProtectedRoute>
-                        <LoginAndRegister />
-                    </NoUserProtectedRoute>
-                ,
-            },
-            {
-                path: "profile/:username",
-                element:
-                    <UserProtectedRoute>
-                        <Profile />
-                    </UserProtectedRoute>
-                ,
-            },
-            {
-                path: "fantasy",
-                element:
-                    <UserProtectedRoute>
-                        <Rooms>
-                            <Fantasy />
-                        </Rooms>
-                    </UserProtectedRoute>
-                ,
-            },
-            {
-                path: "sci-fi",
-                element:
-                    <UserProtectedRoute>
-                        <Rooms>
-                            <SciFi />
-                        </Rooms>
-                    </UserProtectedRoute>
-                ,
-            },
-            {
-                path: "horror-and-other",
-                element:
-                    <UserProtectedRoute>
-                        <Rooms>
-                            <HorrorAndOther />
-                        </Rooms>
-                    </UserProtectedRoute>
-                ,
+                path: "terms-of-service",
+                // element: < />,
             },
             {
                 path: "privacy-policy",
                 // element: < />,
             },
             {
-                path: "terms-of-service",
+                path: "legal-notice",
                 // element: < />,
             },
         ]
-    }
+        }
 ]);

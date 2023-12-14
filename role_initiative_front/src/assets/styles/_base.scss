@@ -64,6 +64,10 @@ main h2 {
     font-size: var(--title-fs);
 }
 
+main h3 {
+    font-size: var(--nav-fs);
+}
+
 img {
     display: block;
     max-width: 100%;
@@ -71,7 +75,8 @@ img {
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
     outline-color: var(--_accent-clr);
 }
 
@@ -101,7 +106,8 @@ p {
 
 :where(input[type="text"]),
 :where(input[type="email"]),
-:where(input[type="password"]) {
+:where(input[type="password"]),
+:where(textarea) {
     caret-color: hsl(var(--_txt-values) / var(--alpha));
     padding: var(--input-padding-block) var(--input-padding-inline);
     background-color: var(--primary-bg-clr);

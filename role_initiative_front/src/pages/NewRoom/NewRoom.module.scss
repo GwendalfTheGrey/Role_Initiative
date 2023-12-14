@@ -1,25 +1,41 @@
-@use "../../../assets/styles/mixins" as *;
+@use "../../assets//styles/mixins" as *;
 
-.register_form {
-    position: relative;
+.new_room {
     display: grid;
     gap: 2em;
-    > :first-child {
-        margin-top: 1em;
-    }
-    &_user_type {
+    margin-block: var(--section-margin-block);
+    max-width: var(--half-page-max-width);
+    border-radius: var(--double-border-radius);
+    background-color: var(--secondary-bg-clr);
+    padding: 1em 1.5em;
+    h2 {
         justify-self: center;
+    }
+    &_form {
         display: grid;
         gap: 2em;
-        padding: var(--input-padding-block) var(--input-padding-inline);
-        border: 1px solid hsl(var(--fantasy-txt-values) / var(--half-alpha));
-        border-radius: var(--border-radius);
-        p {
-            margin-bottom: var(--input-padding-block);
+        textarea {
+            width: 100%;
+            resize: none;
+            border: 1px solid var(--_txt-clr);
+            border-radius: var(--border-radius);
+            background-color: var(--primary-bg-clr);
+            line-height: 1.5;
+            &:valid + span {
+                top: calc(-0.5em - var(--_input-padding-block));
+                scale: 0.9;
+            }
         }
-        &_player {
+        &_room {
             display: grid;
-            &_levels {
+            gap: 1em;
+            margin-inline: auto;
+            padding: 1em;
+            width: fit-content;
+            border: 1px solid hsl(var(--_txt-values) / var(--half-alpha));
+            border-radius: var(--double-border-radius);
+            &_levels_ttrpg {
+                border: none;
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
@@ -56,15 +72,8 @@
                 }
             }
         }
-        &_gm {
-            display: grid;
-            width: fit-content;
-            label {
-                justify-self: center;
-                padding: 0.75em 1em;
-                background-color: hsl(var(--primary-bg-values) / var(--alpha));
-                border-radius: var(--border-radius);
-            }
+        button {
+            justify-self: center;
         }
     }
 }

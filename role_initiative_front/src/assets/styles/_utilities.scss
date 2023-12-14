@@ -43,6 +43,9 @@
 
 .input-text {
     position: relative;
+    &:has(input:read-only) {
+        opacity: var(--half-opacity);
+    }
     input {
         width: 100%;
     }
@@ -110,19 +113,141 @@
 }
 
 .room {
-    display: grid;
     grid-template-columns: auto 1fr;
+    &-user {
+        max-width: 5em;
+        p {
+            font-size: var(--legend-fs);
+        }
+    }
+    &-content {
+        padding-left: 0.5em;
+        border-left: 1px solid hsl(var(--primary-bg-values) / var(--alpha));
+        h2 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+        &-details + p {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+            overflow: hidden;
+        }
+    }
+    &-addons {
+        grid-column: 1 / -1;
+        display: grid;
+        align-items: center;
+        gap: 2em;
+        margin-top: 1em;
+        button {
+            justify-self: center;
+        }
+        a {
+            justify-self: center;
+            font-size: var(--nav-fs);
+            color: var(--_accent-clr);
+            @include hover {
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-decoration-color: var(--_accent-clr);
+            }
+        }
+        @include s {
+            gap: 0;
+            button,
+            a {
+                grid-area: 1 / 1;
+            }
+            button {
+                justify-self: start;
+            }
+            a {
+                justify-self: end;
+            }
+        }
+    }
+}
+
+.room-details {
+    max-width: var(--half-page-max-width);
+    a {
+        justify-self: center;
+        margin-top: 1em;
+        width: 4em;
+        opacity: var(--half-opacity);
+        transition: opacity 300ms ease;
+        @include hover {
+            opacity: 1;
+        }
+    }
+    p[data-ongoing="true"] {
+        justify-self: center;
+        grid-column: 1 / -1;
+        scale: 1.2;
+        color: var(--_accent-clr);
+        filter: drop-shadow(0 0 var(--drop-shadow-blur) var(--_accent-clr));
+    }
+    p[data-ongoing="false"] {
+        justify-self: center;
+        grid-column: 1 / -1;
+        scale: 1.2;
+        color: hsl(var(--_txt-values) / var(--alpha));
+        filter: none;
+    }
+    &-user {
+        justify-self: center;
+        width: 4em;
+        &-username {
+            font-size: var(--legend-fs);
+        }
+    }
+    &-actions {
+        grid-column: 1 / -1;
+        grid-row: 5 / 6;
+        display: grid;
+        gap: 1em;
+        margin-top: 1em;
+        @include s {
+            justify-self: end;
+            grid-template-columns: repeat(2, auto);
+            grid-row: 4 / 5;
+        }
+    }
+    @include s {
+        grid-template-columns: auto 1fr;
+        a {
+            place-self: center;
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+            margin-block: 0 -1em;
+        }
+        &_content {
+            padding-left: 0.5em;
+            border-left: 1px solid hsl(var(--primary-bg-values) / var(--alpha));
+        }
+    }
+    @include sm {
+        &-user {
+            width: 5em;
+        }
+    }
+}
+
+.room,
+.room-details {
+    display: grid;
     grid-template-rows: 1fr auto;
     gap: 1em;
     padding: 1.5em 1.75em;
-    border-radius: calc(var(--border-radius) * 2);
+    border-radius: var(--double-border-radius);
     background-color: var(--secondary-bg-clr);
     &-user {
-        align-self: flex-start;
+        align-self: start;
         display: grid;
         gap: 0.25em;
-        min-width: 3em;
-        max-width: 5em;
         &-icon {
             position: relative;
             &-body {
@@ -136,19 +261,10 @@
         }
         p {
             justify-self: center;
-            font-size: var(--legend-fs);
         }
     }
     &-content {
         --alpha: var(--half-opacity);
-        padding-left: 0.5em;
-        border-left: 1px solid hsl(var(--primary-bg-values) / var(--alpha));
-        h2 {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-        }
         &-details {
             p[data-ttrpg-genre="fantasy"] {
                 --_accent-clr: var(--fantasy-accent-clr, hsl(29 100% 50%));
@@ -163,7 +279,7 @@
                 color: var(--_accent-clr);
             }
             * {
-                padding-top: .5em;
+                padding-top: 0.5em;
                 font-size: var(--legend-fs);
             }
             p:has(span) {
@@ -171,35 +287,29 @@
             }
             + p {
                 margin-top: 1em;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 5;
-                overflow: hidden;
+                white-space: pre-wrap;
             }
         }
     }
-    &-informations {
-        grid-column: 1 / -1;
-        display: grid;
-        align-items: center;
-        margin-top: 1em;
-        button, a {
-            grid-area: 1 / 1;
-        }
-        button {
-            justify-self: start;
-        }
-        a {
-            justify-self: end;
-            // text-align: end;
-            font-size: var(--nav-fs);
-            color: var(--_accent-clr);
-            transition: text-decoration 300ms ease;
-            @include hover {
-                text-decoration: underline;
-                text-decoration-thickness: 1px;
-                text-decoration-color: var(--_txt-clr);
-            }
-        }
+}
+
+.add-room {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.25em solid var(--_txt-clr);
+    border-radius: var(--double-border-radius);
+    opacity: var(--half-opacity);
+    transition: opacity 300ms ease, background-color 300ms ease;
+    span:first-of-type {
+        font-size: 10rem;
+    }
+    span:last-of-type {
+        font-size: 2em;
+    }
+    @include hover {
+        opacity: 1;
+        background-color: var(--secondary-bg-clr);
     }
 }

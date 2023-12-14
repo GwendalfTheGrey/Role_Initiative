@@ -96,7 +96,7 @@ export default function Header() {
                                 <NavLink
                                     title="Profil"
                                     className={({ isActive }) => isActive ? `${style.active} ${style.user_icon}` : `${style.user_icon}`}
-                                    to={`profile/${user.username}`}
+                                    to={`profile/${user.idUser}/${user.username}`}
                                     onClick={closeMenu}
                                 >
                                     {
