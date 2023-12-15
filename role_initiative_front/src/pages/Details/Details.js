@@ -84,7 +84,7 @@ export default function Details() {
                                 user.idUser === roomDetails?.idUser ?
                                     <button className="btn btn-phantom" onClick={() => handleOngoing({ idRoom: roomDetails.idRoom, onGoing: !roomDetails.onGoing })}>{!roomDetails.onGoing ? "Démarrer" : "Arrêter"}</button>
                                     :
-                                    <button className="btn btn-phantom" onClick={() => handleJoin({ idUser: user.idUser, idRoom: idRoom })} disabled={roomDetails.onGoing || user.idLevel < roomDetails.idLevel}>{!userJoinedRoom ? "Rejoindre" : "Quitter"}</button>
+                                    <button className="btn btn-phantom" onClick={() => handleJoin({ idUser: user.idUser, idRoom: idRoom })} disabled={(roomDetails.onGoing && !userJoinedRoom) || user.idLevel < roomDetails.idLevel}>{!userJoinedRoom ? "Rejoindre" : "Quitter"}</button>
                             }
                             {
                                 user.idUser === roomDetails?.idUser || user.admin ?
