@@ -4,9 +4,9 @@
     display: grid;
     gap: 2em;
     margin-block: var(--section-margin-block);
-    grid-auto-rows: 1fr;
     @include m {
         grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 1fr;
     }
     @include xl {
         grid-template-columns: repeat(3, 1fr);

@@ -44,8 +44,8 @@ export default function Home() {
                         <ul className={`${style.arguments_wrapper_content_list}`}>
                             <li className="corpus-line-height"><Arrow />Créez ou rejoignez un salon existant et retrouvez des personnes qui comme vous ne cherchent qu'à partir à l'aventure.</li>
                             <li className="corpus-line-height"><Arrow />Chaque salon à un niveau d'expérience attendu pour y entrer. Cela vous permet de jouer avec des personnes qui elles aussi commencent leurs aventures ou continuent leur ascension vers les sommets.</li>
-                            <li className="corpus-line-height"><Arrow />Vous pouvais choisir de parcourir les salons en fonction du type d'aventure que vous cherchez (magique, futuriste, effrayante, ...). Les salons peuvent aussi être filtrés par leur intitulé, le nom du créateur du salon ou encore par le niveau minimum attendu pour les rejoindre.</li>
-                            <li className="corpus-line-height"><Arrow />Retrouvez les salons de jeux en cours dans lesquels vous vous trouvez sur votre page profil. Vous y trouverez aussi le nombre de parties complétées vous permettant ainsi de suivre votre progrès.</li>
+                            <li className="corpus-line-height"><Arrow />Vous pouvais choisir de parcourir les salons en fonction du type d'aventure que vous cherchez (magique, futuriste, effrayante, ...). Pour les maîtres du jeu parmi vous, ils vous est possible de créer vos propre salons.</li>
+                            <li className="corpus-line-height"><Arrow />Retrouvez les salons de jeux dans lesquels vous vous trouvez sur votre page profil. Vous pourrez ainsi voir si ils sont en cours ou non, il vous sera même possible de les quitter si vous le souhaitez.</li>
                         </ul>
                     </div>
                 </article>

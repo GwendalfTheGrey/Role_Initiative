@@ -29,7 +29,7 @@ export default function Profile() {
     useEffect(() => {
         idUser !== user.idUser &&
             navigate(`../profile/${user.idUser}/${user.username}`);
-    }, [idUser]);
+    }, [idUser, navigate, user.idUser, user.username]);
 
     const defaultValues = {
         username: user.username,

@@ -114,13 +114,19 @@
 
 .room {
     grid-template-columns: auto 1fr;
+    grid-auto-rows: auto;
     &-user {
-        max-width: 5em;
+        width: 3.5em;
         p {
             font-size: var(--legend-fs);
         }
+        @include s {
+            width: 4em;
+        }
     }
     &-content {
+        align-self: start;
+        height: fit-content;
         padding-left: 0.5em;
         border-left: 1px solid hsl(var(--primary-bg-values) / var(--alpha));
         h2 {
@@ -298,6 +304,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 4em;
     border: 0.25em solid var(--_txt-clr);
     border-radius: var(--double-border-radius);
     opacity: var(--half-opacity);
@@ -307,6 +314,7 @@
     }
     span:last-of-type {
         font-size: 2em;
+        text-align: center;
     }
     @include hover {
         opacity: 1;
