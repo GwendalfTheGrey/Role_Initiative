@@ -9,18 +9,6 @@
     --legend-fw: 200;
 
     // Font-Size
-    --hero-title-fs-300: 1.75rem;
-    --hero-title-fs-400: 3rem;
-    --hero-title-fs-500: 3.375rem;
-    --fs-100: 0.625rem;
-    --fs-200: 0.75rem;
-    --fs-300: 0.875rem;
-    --fs-400: 1rem;
-    --fs-500: 1.125rem;
-    --fs-600: 1.375rem;
-    --fs-700: 1.5rem;
-    --fs-800: 1.75rem;
-    --fs-900: 2rem;
     --nav-fs: clamp(1.125rem, calc(0.25vw + 1rem), 1.5rem);
     --hero-title-fs: clamp(1.75rem, calc(1.5vw + 1.5rem), 3.375rem);
     --title-fs: clamp(1.125rem, calc(1vw + 1rem), 2rem);
@@ -55,16 +43,24 @@
     --input-padding-block: 0.5em;
     --input-padding-inline: 0.75em;
 
-    // Miscellaneous
+    // Widths
     --page-max-width: 100rem;
     --half-page-max-width: calc(var(--page-max-width) / 2);
     --logo-max-width: 8rem;
     --socials-max-width: 1.75rem;
     --corpus-primary-max-width: 60ch;
+
+    // Blur
     --drop-shadow-blur: 0.25em;
+
+    // Border
     --border-radius: 0.25em;
     --double-border-radius: calc(var(--border-radius) * 2);
+
+    // Opacity
     --half-opacity: 0.5;
+
+    // Line-Height
     --title-line-height: 1.2;
     --corpus-line-height: 1.5;
 }
