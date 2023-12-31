@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useFetchHomeRooms } from "../../../hooks/useFetchHomeRooms";
 import { AuthContext } from "../../../context/AuthContext";
 import Room from "../../../components/Room/Room";

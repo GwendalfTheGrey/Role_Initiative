@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPlayerRoomsProfile } from "../apis/rooms";
 
+// CUSTOM HOOK TO FETCH ROOMS ON PROFILE PAGE FOR PLAYERS
 export const useFetchProfilePlayer = (idUser) => {
     const [data, setData] = useState([]);
 

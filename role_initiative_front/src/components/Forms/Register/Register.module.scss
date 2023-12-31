@@ -1,5 +1,6 @@
 @use "../../../assets/styles/mixins" as *;
 
+// REGISTER FORM
 .register_form {
     position: relative;
     display: grid;
@@ -19,6 +20,7 @@
         }
         &_player {
             display: grid;
+            // SETTING STYLE OF RADIO INPUTS
             &_levels {
                 display: flex;
                 flex-wrap: wrap;
@@ -52,6 +54,7 @@
                         appearance: none;
                         block-size: 100%;
                         inline-size: 100%;
+                        -webkit-tap-highlight-color: transparent;
                     }
                 }
             }

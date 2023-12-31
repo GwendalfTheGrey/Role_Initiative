@@ -9,6 +9,7 @@ import { ReactComponent as D20 } from "../../assets/images/D20.svg";
 import { ReactComponent as ArgumentsIcon } from "../../assets/images/arguments_icon.svg";
 import { ReactComponent as Arrow } from "../../assets/images/arrow.svg";
 
+// HOMEPAGE NO USER CONNECTED
 export default function Home() {
     const navigate = useNavigate();
 

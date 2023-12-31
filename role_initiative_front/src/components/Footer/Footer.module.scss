@@ -1,5 +1,6 @@
 @use "../../assets/styles/mixins" as *;
 
+// ADDING DISPLAY OF FLEX TO BASELINE TO CENTER CONTENT
 footer {
     display: flex;
     flex-direction: column;
@@ -10,6 +11,7 @@ footer {
     );
 }
 
+// FOOTER NAV
 .footer_nav {
     display: grid;
     place-items: center;
@@ -84,6 +86,7 @@ footer {
         &_socials {
             display: flex;
             justify-content: center;
+            // EVERY DIRECT CHILD PRECEDED BY ANYTHING
             > * + * {
                 margin-left: 1em;
             }

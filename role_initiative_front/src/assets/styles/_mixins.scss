@@ -1,3 +1,4 @@
+// MEDIA QUERIES FOR SCREEN WIDTH
 @mixin s {
     @media (min-width: 30.01em) {
         @content;
@@ -29,6 +30,7 @@
     }
 }
 
+// MEDIA QUERY FOR POSSIBLE HOVER
 @mixin hover {
     @media (hover: hover) {
         &:hover:not(:disabled) {
@@ -37,6 +39,7 @@
     }
 }
 
+// MEDIA QUERY FOR REDUCED MOTION
 @mixin prefers-reduced-motion {
     @media (prefers-reduced-motion) {
         @content;

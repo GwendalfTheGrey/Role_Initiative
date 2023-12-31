@@ -15,6 +15,11 @@ const SciFi = lazy(() => import("./pages/Rooms/components/SciFi"));
 const HorrorAndOther = lazy(() => import("./pages/Rooms/components/HorrorAndOther"));
 const Details = lazy(() => import("./pages/Details/Details"));
 const NewRoom = lazy(() => import("./pages/NewRoom/NewRoom"));
+const TermsOfService = lazy(() => import("./pages/TOS/TermsOfService"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy/PrivacyPolicy"));
+const LeagalNotices = lazy(() => import("./pages/LegalNotices/LeagalNotices"));
+const ForgottenPassword = lazy(() => import("./pages/Security/ForgottenPassword/ForgottenPassword"));
+const ResetPassword = lazy(() => import("./pages/Security/ResetPassword/ResetPassword"));
 
 export const router = createBrowserRouter([
     {
@@ -169,17 +174,33 @@ export const router = createBrowserRouter([
                 ],
             },
             {
+                path: "forgotten-password",
+                element:
+                    <NoUserProtectedRoute>
+                        <ForgottenPassword />
+                    </NoUserProtectedRoute>
+                ,
+            },
+            {
+                path: "reset-password",
+                element:
+                    <NoUserProtectedRoute>
+                        <ResetPassword />
+                    </NoUserProtectedRoute>
+                ,
+            },
+            {
                 path: "terms-of-service",
-                // element: < />,
+                element: <TermsOfService />,
             },
             {
                 path: "privacy-policy",
-                // element: < />,
+                element: <PrivacyPolicy />,
             },
             {
-                path: "legal-notice",
-                // element: < />,
+                path: "legal-notices",
+                element: <LeagalNotices />,
             },
         ]
-        }
+    }
 ]);

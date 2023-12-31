@@ -1,25 +1,31 @@
 @use "../../assets/styles/mixins" as *;
 
+// UTILITY CLASS FOR MAIN WIDTH
 .page-width {
     width: calc(100% - var(--page-width-margin));
 }
 
+// UTILITY CLASS FOR MAIN MAX-WIDTH
 .page-max-width {
     max-width: var(--page-max-width);
 }
 
+// UTILITY CLASS FOR HORIZONTAL CENTERING
 .center-horizontal {
     margin-inline: auto;
 }
 
+// UTILITY CLASS FOR SETTING LINE-HEIGHT
 .corpus-line-height {
     line-height: var(--corpus-line-height);
 }
 
+// BUTTONS UTILITY CLASSES
 .btn {
     font-size: var(--nav-fs);
     padding: 0.5em 1.5em;
     border-radius: 100vw;
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
     &-phantom {
         border: 0.125em solid var(--_accent-clr);
@@ -41,6 +47,7 @@
     }
 }
 
+// TEXT INPUTS UTILITY CLASS
 .input-text {
     position: relative;
     &:has(input:read-only) {
@@ -65,10 +72,12 @@
     &:focus-within span,
     input:not(:placeholder-shown) + span {
         top: calc(-0.5em - var(--_input-padding-block));
+        transform-origin: left;
         scale: 0.9;
     }
 }
 
+// CHECKBOX UTILITY CLASS
 .generic-checkbox {
     position: relative;
     display: grid;
@@ -76,6 +85,7 @@
     place-content: center;
     width: fit-content;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     &::before {
         content: "\2714";
         position: absolute;
@@ -106,12 +116,19 @@
         align-self: center;
         margin-left: 1em;
     }
+    p {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        margin-left: 1em;
+    }
 }
 
+// FORM FEEDBACKS UTILITY CLASS
 .form-error {
     opacity: var(--half-opacity);
 }
 
+// UTILITY CLASS FOR ROOM IN LIST
 .room {
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto;
@@ -177,6 +194,7 @@
     }
 }
 
+// UTILITY CLASS FOR SPECIFIC ROOM
 .room-details {
     max-width: var(--half-page-max-width);
     a {
@@ -242,6 +260,7 @@
     }
 }
 
+// COMMON STYLE FOR ROOMS UTILITY CLASSES
 .room,
 .room-details {
     display: grid;
@@ -299,6 +318,7 @@
     }
 }
 
+// UTILITY CLASS FOR ADD-ROOM BUTTON
 .add-room {
     display: flex;
     flex-direction: column;

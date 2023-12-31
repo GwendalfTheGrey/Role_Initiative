@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllRoomsProfile } from "../apis/rooms";
 
+// CUSTOM HOOK TO FETCH ROOMS ON PROFILE PAGE FOR ADMIN
 export const useFetchProfileAllRooms = () => {
     const [data, setData] = useState([]);
 

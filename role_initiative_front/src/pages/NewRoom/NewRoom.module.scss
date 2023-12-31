@@ -1,5 +1,6 @@
 @use "../../assets//styles/mixins" as *;
 
+// NEW ROOM
 .new_room {
     display: grid;
     gap: 2em;
@@ -26,6 +27,7 @@
                 scale: 0.9;
             }
         }
+        // LEVELS WRAPPER
         &_room {
             display: grid;
             gap: 1em;

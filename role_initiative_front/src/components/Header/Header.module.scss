@@ -1,5 +1,6 @@
 @use "../../assets/styles/mixins" as *;
 
+// SETTING BACKDROP FOR WHEN THE MOBILE MENU IS OPEN
 body::before {
     content: "";
     position: fixed;
@@ -14,10 +15,12 @@ body::before {
     transition: opacity 400ms ease;
 }
 
+// SHOWING BACKDROP FOR WHEN THE MOBILE MENU IS OPEN
 body:has(.mobile_menu[aria-expanded="true"])::before {
     opacity: 1;
 }
 
+// BASELINE FOR HEADER
 header {
     position: sticky;
     top: 0;
@@ -28,6 +31,7 @@ header {
     }
 }
 
+// HEADER NAV
 .primary_nav {
     position: relative;
     display: flex;
@@ -63,6 +67,7 @@ header {
             }
         }
     }
+    // DROP DOWN MBILE MENU
     .mobile_menu {
         width: 3rem;
         border: none;
@@ -85,6 +90,7 @@ header {
             }
         }
     }
+    // NAV LINKS
     &_links {
         --alpha: 0.5;
         position: absolute;
@@ -102,6 +108,7 @@ header {
         > * {
             padding-block: var(--nav-links-padding-block);
             transition: background-color 300ms ease;
+            // EVERY DIRECT CHILD PRECEDED BY ANYTHING
             + * {
                 border-top: 1px solid var(--secondary-bg-clr);
             }
@@ -121,6 +128,7 @@ header {
             display: none;
         }
     }
+    // HEADER NAV MEDIA QUERY
     @include m {
         background-color: transparent;
         box-shadow: none;
@@ -138,6 +146,7 @@ header {
             *:last-child {
                 border: none;
             }
+            // EVERY DIRECT CHILD PRECEDED BY ANYTHING
             > * + * {
                 margin-left: 1.5em;
             }

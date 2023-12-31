@@ -7,6 +7,7 @@ import Room from "../Room/Room";
 import Loading from "../Loading/Loading";
 import AddRoomButton from "../AddRoomButton/AddRoomButton";
 
+// HOMEPAGE USER CONNECTED
 export default function HomeConnected() {
     const { user } = useContext(AuthContext);
 

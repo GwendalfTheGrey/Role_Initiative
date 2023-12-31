@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getGMRoomsProfile } from "../apis/rooms";
 
+// CUSTOM HOOK TO FETCH ROOMS ON PROFILE PAGE FOR GAME MASTERS
 export const useFetchProfileGM = (idUser) => {
     const [data, setData] = useState([]);
 

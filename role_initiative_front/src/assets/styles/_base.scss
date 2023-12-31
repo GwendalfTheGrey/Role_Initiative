@@ -1,5 +1,6 @@
 @use "./mixins" as *;
 
+// RESET
 *,
 *::before,
 *::after {
@@ -8,6 +9,7 @@
     box-sizing: border-box;
 }
 
+// SETTING UP MAIN STYLE FOR CASCADE
 body {
     scroll-behavior: smooth;
     background-color: var(--primary-bg-clr);
@@ -16,6 +18,7 @@ body {
     font-size: var(--corpus-fs);
 }
 
+// SETTING UP ACCENT COLOR CHANGE
 body[data-ttrpg-genre="fantasy"] {
     --_accent-clr: var(--fantasy-accent-clr, hsl(29 100% 50%));
     --_accent-values: var(--fantasy-accent-values);
@@ -37,6 +40,7 @@ body[data-ttrpg-genre="horror-and-other"] {
     --_txt-values: var(--horror-txt-values, 0 0% 100%);
 }
 
+// SETTING GRID TO HAVE HEADER AND FOOTER AT TOP AND BOTTOM
 #root {
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -44,15 +48,18 @@ body[data-ttrpg-genre="horror-and-other"] {
     min-height: 100svh;
 }
 
+// SETTING NAVS FONT-WEIGHT
 header a,
 footer a {
     font-weight: var(--nav-link-fw);
 }
 
+// CENTERING MAIN VETICALLY ON PAGE BASED ON MAIN GRID
 main {
     align-self: center;
 }
 
+// SETTING TITLES FONT-FAMILIES AND LINE-HEIGHT
 h1,
 h2,
 h3 {
@@ -60,19 +67,23 @@ h3 {
     line-height: var(--title-line-height);
 }
 
+// SETTING MAIN TITLES FONT-SIZE
 main h2 {
     font-size: var(--title-fs);
 }
 
+// SETTING PROFILE ROOMS TITLES FONT-SIZE
 main h3 {
     font-size: var(--nav-fs);
 }
 
+// IMAGES RESET
 img {
     display: block;
     max-width: 100%;
 }
 
+// SETTING FOCUS VISIBLE OULINE-COLOR
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -80,30 +91,37 @@ textarea:focus-visible {
     outline-color: var(--_accent-clr);
 }
 
+// SETTING FOCUS VISIBLE OULINE-OFFSET
 a:focus-visible,
 button:focus-visible,
 input[type="checkbox"]:focus-visible {
     outline-offset: 0.375em;
 }
 
+// RESET AND BASELINE FOR LINKS
 a {
     display: block;
     text-decoration: none;
     color: var(--_txt-clr);
+    -webkit-tap-highlight-color: transparent;
 }
 
+// RESET FOR LINKS IN PARAGRAPHS
 p > a {
     display: inline-block;
 }
 
+// RESET LI
 li {
     list-style-type: none;
 }
 
+// SETTING LINE-HEIGHT FOR PARAGRAPHS
 p {
     line-height: var(--corpus-line-height);
 }
 
+// SETTING BASELINE FOR VARIOUS TEXT INPUTS
 :where(input[type="text"]),
 :where(input[type="email"]),
 :where(input[type="password"]),
@@ -118,6 +136,7 @@ p {
     color: var(--_txt-clr);
 }
 
+// SETTING BASELINE FOR FOOTER
 footer {
     justify-self: center;
     align-self: end;
