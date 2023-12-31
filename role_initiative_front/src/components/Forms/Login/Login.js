@@ -45,6 +45,7 @@ export default function Login({ adminSigningScreen = false }) {
         reset
     } = useForm({
         defaultValues,
+        mode: "onBlur",
         resolver: yupResolver(validationSchema),
     });
 
@@ -62,13 +63,13 @@ export default function Login({ adminSigningScreen = false }) {
     return (
         <form onSubmit={handleSubmit(submit)} className={`${style.login_form}`}>
             <label className="input-text" htmlFor="emailLogin">
-                <input id="emailLogin" name="emailLogin" type="email" placeholder="" required {...register("emailLogin")} />
+                <input id="emailLogin" name="emailLogin" type="email" placeholder="" {...register("emailLogin")} />
                 <span>Email</span>
                 {errors.emailLogin && <p className="form-error">{errors.emailLogin.message}</p>}
             </label>
 
             <label className="input-text" htmlFor="passwordLogin">
-                <input id="passwordLogin" name="passwordLogin" type="password" placeholder="" required {...register("passwordLogin")} />
+                <input id="passwordLogin" name="passwordLogin" type="password" placeholder="" {...register("passwordLogin")} />
                 <span>Mot de passe</span>
                 {errors.passwordLogin && <p className="form-error">{errors.passwordLogin.message}</p>}
             </label>
@@ -78,7 +79,7 @@ export default function Login({ adminSigningScreen = false }) {
                     <input id="stayConnected" name="stayConnected" type="checkbox" {...register("stayConnected")} />
                     <span>Rester connecté <span>(1 mois)</span></span>
                 </label>
-                <Link>Mot de passe oublié ?</Link>
+                <Link to="../forgotten-password">Mot de passe oublié ?</Link>
             </div>
 
             {errors.generic && (

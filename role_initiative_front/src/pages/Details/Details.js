@@ -11,6 +11,7 @@ import { changeOngoing, deleteRoom } from "../../apis/rooms";
 import { useFetchUserJoinedRoom } from "../../hooks/useFetchUserJoinedRoom";
 import { userJoinsRoom, userLeavesRoom } from "../../apis/users";
 
+// DETAILS FOR A SPECIFIC ROOM
 export default function Details() {
     const { idRoom } = useParams();
 

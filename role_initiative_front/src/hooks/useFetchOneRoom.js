@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getRoomDetails } from "../apis/rooms";
 
+// CUSTOM HOOK TO FETCH DETAILS OF SPECIFIC ROOM
 export const useFetchOneRoom = (idRoom) => {
     const [data, setData] = useState([]);
 

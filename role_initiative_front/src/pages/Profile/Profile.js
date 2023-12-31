@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,8 @@ export default function Profile() {
     const { idUser } = useParams();
 
     const { user } = useContext(AuthContext);
+
+    const [deleteUser, setDeleteUser] = useState(false);
 
     const [allRooms, setAllRooms] = useFetchProfileAllRooms();
 

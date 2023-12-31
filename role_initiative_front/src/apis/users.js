@@ -10,7 +10,7 @@ export const createUser = async (newUser) => {
     });
     const backResponse = await response.json();
     if (response.ok) {
-        console.log(`${backResponse.username} created`);
+        return backResponse
     } else {
         if (backResponse) {
             throw backResponse;

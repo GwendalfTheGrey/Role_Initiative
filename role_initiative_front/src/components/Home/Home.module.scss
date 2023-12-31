@@ -1,5 +1,7 @@
 @use "../../assets/styles/mixins" as *;
 
+// HOME NO USER CONNECTED
+// HERO SECTION
 .hero {
     overflow: hidden;
     &_wrapper {
@@ -89,6 +91,7 @@
     }
 }
 
+// ARGUMENTS SECTION
 .arguments {
     background: linear-gradient(
         var(--primary-bg-clr) 0,
@@ -139,6 +142,7 @@
             &_content {
                 grid-column: 2 / 4;
             }
+            // SETTING UP VISUALS
             &_visual {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -195,6 +199,7 @@
                 }
             }
         }
+        // SETTING VISUALS ANIMATION
         @keyframes float-d8 {
             from {
                 transform: translateY(-1em);
@@ -237,6 +242,7 @@
             &_content {
                 grid-column: 2 / 3;
             }
+            // CHANGING VISUALS COMPOSITION
             &_visual {
                 grid-template-columns: repeat(5, 1fr);
                 grid-template-rows: repeat(5, 1fr);
@@ -284,6 +290,7 @@
     }
 }
 
+// ABOUT SECTION
 .about {
     &_wrapper {
         margin-block: var(--section-margin-block);
@@ -326,6 +333,7 @@
                 grid-column: 1 / 3;
                 grid-row: 1;
             }
+            // SETTING UP VISUALS
             &_visual {
                 grid-column: 3 / 4;
                 display: grid;
@@ -382,6 +390,7 @@
                 }
             }
         }
+        // SETTING VISUALS ANIMATION
         @keyframes float-d100 {
             from {
                 transform: translateY(-1.25em);
@@ -424,6 +433,7 @@
             &_content {
                 grid-column: 1 / 2;
             }
+            // CHANGING VISUALS COMPOSITION
             &_visual {
                 grid-column: 2 / 3;
                 grid-template-columns: repeat(5, 1fr);

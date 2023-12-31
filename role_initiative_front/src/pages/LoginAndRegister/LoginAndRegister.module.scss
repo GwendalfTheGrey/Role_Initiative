@@ -1,31 +1,37 @@
 @use "../../assets/styles/mixins" as *;
 
+// SETTING GRID FOR LOGIN AND REGISTER WRAPPER
 .login_register_wrapper {
     display: grid;
 }
 
+// LOGIN AND REGISTER BASELINE
 .login_register {
     display: grid;
     align-content: start;
     height: fit-content;
     margin-block: var(--section-margin-block);
+    // STYLE FOR LOGIN OF GENERIC USER BASED ON IF LOGIN_REGISTER HAS REGISTER
     &:has(.register) .login {
-        &_visual {
-            display: none;
-        }
         border-top-right-radius: var(--double-border-radius);
         border-top-left-radius: var(--double-border-radius);
         border-bottom: 1px solid
-            hsl(var(--fantasy-txt-values) / var(--half-alpha));
+        hsl(var(--fantasy-txt-values) / var(--half-alpha));
+        &_visual {
+            display: none;
+        }
     }
+    // STYLE FOR REGISTER OF GENERIC USER BASED ON IF LOGIN_REGISTER HAS LOGIN
     &:has(.login) .register {
         border-bottom-right-radius: var(--double-border-radius);
         border-bottom-left-radius: var(--double-border-radius);
     }
+    // STYLE FOR LOGIN AND REGISTER OF ADMIN BASED ON IF LOGIN ISN'T FOLLOWED BY REGISTER AND IF LOGIN_REGISTER DOESN'T HAVE LOGIN
     .login:not(:has(+ .register)),
     &:not(:has(.login)) .register {
         border-radius: var(--double-border-radius);
     }
+    // LOGIN AND REGISTER
     .login,
     .register {
         overflow-y: hidden;
@@ -42,6 +48,7 @@
             padding-block: 1em;
             background-color: var(--secondary-bg-clr);
             cursor: pointer;
+            // STYLING MAKING FORM INTERACTIVE ON MOBILE IF IT'S TITLE IS CHECKED
             &:has(input:checked) + form {
                 margin-top: 0;
                 margin-bottom: 1em;
@@ -49,6 +56,7 @@
             }
             input {
                 appearance: none;
+                -webkit-tap-highlight-color: transparent;
                 &:not(:checked) + span {
                     opacity: var(--half-opacity);
                 }
@@ -59,6 +67,7 @@
                 transition: opacity 500ms ease;
             }
         }
+        // STYLING MAKING FORM NOT INTERACTIVE ON MOBILE IF IT'S TITLE ISN'T CHECKED
         form {
             margin-top: -150vh;
             pointer-events: none;
@@ -79,13 +88,16 @@
             }
         }
     }
+    // LOGIN AND REGISTER MEDIA QUERY
     @include l {
         grid-template-columns: repeat(2, 1fr);
         gap: 2em;
+        // GRID-TEMPLATE OF LOGIN_REGISTER FOR ADMIN IF IT DOESN'T HAVE EITHER OF LOGIN OR REGISTER
         &:not(:has(.register)),
         &:not(:has(.login)) {
             grid-template-columns: 1fr;
         }
+        // STYLE OF REGISTER AND LOGIN FOR ADMIN IF LOGIN_REGISTER DOESN'T HAVE ONE OR THE OTHER
         &:not(:has(.login)) .register,
         &:not(:has(.register)) .login {
             justify-self: center;
@@ -93,6 +105,7 @@
             max-width: var(--half-page-max-width);
         }
 
+        // STYLE OF LOGIN AND REGISTER FOR GENERIC USER IF REGISTER IS PRESENT
         &:has(.register) .login,
         .register {
             grid-template-rows: repeat(2, auto) 1fr;
@@ -115,6 +128,7 @@
                 }
             }
         }
+        // ADDING AND STYLING LOGIN VISUALS FOR GENERIC USER IF REGISTER IS PRESENT
         &:has(.register) .login_visual {
             place-self: center;
             display: grid;

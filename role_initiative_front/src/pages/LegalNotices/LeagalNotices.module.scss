@@ -1,0 +1,25 @@
+// LEGAL NOTICES
+.legal_notices {
+    margin-block: var(--section-margin-block);
+    padding: 1.5em 2em;
+    max-width: 70ch;
+    background-color: var(--secondary-bg-clr);
+    border-radius: var(--double-border-radius);
+    h1 {
+        font-size: var(--title-fs);
+    }
+    h2 {
+        margin-top: 2em;
+        font-size: var(--subtitle-fs);
+    }
+    p {
+        margin-top: 1em;
+        a {
+            display: inline;
+            text-decoration: underline;
+        }
+    }
+    .addresses {
+        padding-left: 2em;
+    }
+}

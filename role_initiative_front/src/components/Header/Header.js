@@ -26,14 +26,17 @@ export default function Header() {
             if (ariaExpanded === "false") {
                 return;
             }
+            // CLOSING MOBILE MENU IF A CLICK IS REGISTERED OUTSIDE OF THE UL
             if (!ref.current?.contains(e.target)) {
                 e.preventDefault();
                 return setAriaExpanded("false");
             }
         };
 
+        // ADDING EVENT LISTENER
         window.addEventListener("click", expandMenu);
 
+        // REMOVING EVENT LISTENER ON DISMOUNT
         return () => {
             window.removeEventListener("click", expandMenu);
         };
@@ -117,9 +120,7 @@ export default function Header() {
                                     className={`${style.logout}`}
                                     onClick={() => {
                                         logout();
-                                        setTimeout(() => {
-                                            closeMenu();
-                                        }, 2000);
+                                        closeMenu();
                                     }}
                                 >
                                     <LogoutDoor className={`${style.logout_door}`} />

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LevelsContext } from "../../../context/LevelsContext";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import { createUser } from "../../../apis/users";
 
 export default function Register({ adminSigningScreen = false, setAdminPresent }) {
     const levels = useContext(LevelsContext);
+
+    const [feedBack, setFeedBack] = useState();
 
     const defaultValues = {
         username: "",
@@ -67,16 +69,21 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
         reset
     } = useForm({
         defaultValues,
+        mode: "onBlur",
         resolver: yupResolver(validationSchema),
     });
 
     const submit = async (values) => {
         try {
             clearErrors();
-            await createUser({ ...values, admin: adminSigningScreen, emailRegister: values.emailRegister.toLowerCase() });
-            reset();
-            adminSigningScreen && setAdminPresent(true);
+            const response = await createUser({ ...values, admin: adminSigningScreen, emailRegister: values.emailRegister.toLowerCase() });
+            if (response.message) {
+                reset();
+                setFeedBack(response.message);
+                adminSigningScreen && setAdminPresent(true);
+            }
         } catch (error) {
+            setFeedBack(null);
             setError("generic", { type: "generic", message: error });
         }
     };
@@ -84,25 +91,25 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
     return (
         <form onSubmit={handleSubmit(submit)} className={`${style.register_form}`}>
             <label className="input-text" htmlFor="username">
-                <input id="username" name="username" type="text" placeholder="" required {...register("username")} />
+                <input id="username" name="username" type="text" placeholder="" {...register("username")} />
                 <span>Nom d'utilisateur</span>
                 {errors.username && <p className="form-error">{errors.username.message}</p>}
             </label>
 
             <label className="input-text" htmlFor="emailRegister">
-                <input id="emailRegister" name="emailRegister" type="email" placeholder="" required {...register("emailRegister")} />
+                <input id="emailRegister" name="emailRegister" type="email" placeholder="" {...register("emailRegister")} />
                 <span>Email</span>
                 {errors.emailRegister && <p className="form-error">{errors.emailRegister.message}</p>}
             </label>
 
             <label className="input-text" htmlFor="passwordRegister">
-                <input id="passwordRegister" name="passwordRegister" type="password" placeholder="" required {...register("passwordRegister")} />
+                <input id="passwordRegister" name="passwordRegister" type="password" placeholder="" {...register("passwordRegister")} />
                 <span>Mot de passe</span>
                 {errors.passwordRegister && <p className="form-error">{errors.passwordRegister.message}</p>}
             </label>
 
             <label className="input-text" htmlFor="confirmPassword">
-                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="" required {...register("confirmPassword")} />
+                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="" {...register("confirmPassword")} />
                 <span>Confirmer le mot de passe</span>
                 {errors.confirmPassword && <p className="form-error">{errors.confirmPassword.message}</p>}
             </label>
@@ -114,7 +121,7 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
                         {
                             levels?.map((level) => (
                                 <label key={level.idLevel} htmlFor={level.idLevel}>
-                                    <input id={level.idLevel} name="idLevel" type="radio" value={level.idLevel} required {...register("idLevel")} />
+                                    <input id={level.idLevel} name="idLevel" type="radio" value={level.idLevel} {...register("idLevel")} />
                                     <span>{level.levelName}</span>
                                 </label>
                             ))
@@ -133,14 +140,14 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
             </div>
 
             <label className="generic-checkbox" htmlFor="privacyPolicy">
-                <input id="privacyPolicy" name="privacyPolicy" type="checkbox" required {...register("privacyPolicy")} />
-                <Link to={"privacy-policy"}>Politique de confidentialité</Link>
+                <input id="privacyPolicy" name="privacyPolicy" type="checkbox" {...register("privacyPolicy")} />
+                <Link to={"../privacy-policy"}>Politique de confidentialité</Link>
                 {errors.privacyPolicy && <p className="form-error">{errors.privacyPolicy.message}</p>}
             </label>
 
             <label className="generic-checkbox" htmlFor="TOS">
-                <input id="TOS" name="TOS" type="checkbox" required {...register("TOS")} />
-                <Link to={"terms-of-service"}>Conditions Générales d'Utilisation (CGU)</Link>
+                <input id="TOS" name="TOS" type="checkbox" {...register("TOS")} />
+                <Link to={"../terms-of-service"}>Conditions Générales d'Utilisation (CGU)</Link>
                 {errors.TOS && <p className="form-error">{errors.TOS.message}</p>}
             </label>
             {errors.generic && <p className="form-error">{errors.generic.message}</p>}
@@ -148,6 +155,8 @@ export default function Register({ adminSigningScreen = false, setAdminPresent }
             <button disabled={isSubmitting} className="btn btn-phantom">
                 S'inscrire
             </button>
+
+            {feedBack && <p className="form-error">{feedBack}</p>}
         </form>
     );
 }

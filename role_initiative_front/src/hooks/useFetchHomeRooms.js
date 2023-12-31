@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getRooms } from "../apis/rooms";
 
+// CUSTOM HOOK TO FETCH ROOMS ON HOMEPAGE
 export const useFetchHomeRooms = (idGenre = 0) => {
     const [data, setData] = useState([]);
 

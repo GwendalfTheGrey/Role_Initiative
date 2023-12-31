@@ -1,5 +1,6 @@
 @use "../../assets/styles/mixins" as *;
 
+// MAIN AND EVERY DIRECT CHILD PRECEDED BY SOMETHING
 main:has(.profile) {
     margin-block: var(--section-margin-block);
     > * + * {
@@ -7,6 +8,7 @@ main:has(.profile) {
     }
 }
 
+// PROFILE
 .profile {
     display: grid;
     gap: 2em;
@@ -45,6 +47,7 @@ main:has(.profile) {
     }
 }
 
+// PLAYER, GAME MASTER AND ADMIN SECTIONS
 .player,
 .gm,
 .admin {

@@ -23,7 +23,7 @@ export default function Footer() {
                         {!user &&
                             <li><NavLink className={({ isActive }) => isActive ? `${style.active}` : ``} to="login-register">Connexion/Inscription</NavLink></li>
                         }
-                        <li><a target="_blank" href="mailto:gwendalftests+role_initiative@gmail.com">Contact</a></li>
+                        <li><a target="_blank" rel="noreferrer" href="mailto:gwendalftests+role_initiative@gmail.com">Contact</a></li>
                     </ul>
                     <ul className={`${style.footer_nav_content_socials}`}>
                         <li><Link target="_blank" to="https://twitter.com/?lang=en" title="Twitter"><XLogo /></Link></li>

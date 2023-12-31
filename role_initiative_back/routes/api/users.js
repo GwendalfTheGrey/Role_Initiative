@@ -2,6 +2,14 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
 const { key, keyPub } = require("../../keys");
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "gwendalftests@gmail.com",
+        pass: "cmpa gkeq zsfs epdr"
+    }
+});
 
 const connection = require("../../database");
 
@@ -36,13 +44,7 @@ router.post("/register", (req, res) => {
                                 const insertSql = "INSERT INTO usershavelevels (idUser, idLevel) VALUES (?, ?)";
                                 connection.query(insertSql, [idUser, idLevel], (err, result) => {
                                     if (err) throw err;
-                                    const selectSql = "SELECT * FROM users NATURAL JOIN levels";
-                                    connection.query(selectSql, (err, result) => {
-                                        if (err) throw err;
-                                        res.json(result[0]);
-                                    });
-                                    // select SQL unnecessary only for log in front end
-                                    // add res.end() after removing
+                                    res.status(200).json({ message: "Inscription réussie !" });
                                 });
                             });
                         } else {
@@ -153,8 +155,8 @@ router.post("/userJoinsRoom", (req, res) => {
         const userJoinsRoomSql = "INSERT INTO usersjoinrooms (idUser, idRoom) VALUES (?, ?)";
         connection.query(userJoinsRoomSql, [idUser, idRoom], (err, result) => {
             if (err) throw err;
-            res.json(req.body)
-        })
+            res.json(req.body);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -166,10 +168,55 @@ router.delete("/userLeavesRoom", (req, res) => {
         const userLeavesRoomSql = "DELETE FROM usersjoinrooms WHERE idUser = ? AND idRoom = ?";
         connection.query(userLeavesRoomSql, [idUser, idRoom], (err, result) => {
             if (err) throw err;
-            res.end()
-        })
+            res.end();
+        });
     } catch (error) {
         console.log(error);
+    }
+});
+
+router.get("/resetPassword/:email", (req, res) => {
+    try {
+        const email = req.params.email;
+        const searchMailSql = "SELECT * FROM users WHERE email = ?";
+        connection.query(searchMailSql, [email], (err, result) => {
+            if (result.length > 0) {
+                const confirmLink = `http://localhost:3000/reset-password?email=${email}`;
+                const mailOptions = {
+                    from: "gwendalftests@gmail.com",
+                    to: email,
+                    subject: "Réinitialisation de mot de passe Role Initiative",
+                    text: `Cliquez sur le lien pour être redirigé vers la page de réinitialisation de mot de passe : ${confirmLink}`,
+                };
+                transporter.sendMail(mailOptions, (err, info) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.status(200).json({ message: "Un lien de réinitialisation à été envoyé par email" });
+                    }
+                });
+            } else {
+                res.status(400).json("L'email entré n'exite pas dans la base de données");
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Une erreur est survenue");
+    }
+});
+
+router.post("/changePassword", async (req, res) => {
+    try {
+        const { password, email } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const changePasswordSql = "UPDATE users SET userPassword = ? WHERE email = ?";
+        connection.query(changePasswordSql, [hashedPassword, email], (err, result) => {
+            if (err) throw err;
+            res.status(200).json({ message: "Mot de passe modifié, vous allez être redirigé(e)" });
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Une erreur est survenue");
     }
 });
 
