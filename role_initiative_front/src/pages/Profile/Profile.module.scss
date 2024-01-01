@@ -41,8 +41,56 @@ main:has(.profile) {
                 }
             }
         }
+        &_levels_wrapper {
+            justify-self: center;
+            display: grid;
+            gap: .5em;
+            padding: var(--input-padding-block) var(--input-padding-inline);
+            border: 1px solid hsl(var(--fantasy-txt-values) / var(--half-alpha));
+            border-radius: var(--border-radius);
+            &_content {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: var(--input-padding-block);
+                label {
+                    display: grid;
+                    cursor: pointer;
+                    > * {
+                        grid-area: 1 / 1;
+                    }
+                    span {
+                        padding: var(--input-padding-block)
+                            var(--input-padding-inline);
+                        background-color: var(--primary-bg-clr);
+                        border-radius: var(--border-radius);
+                        transition: background-color 100ms ease,
+                            color 100ms ease;
+                    }
+                    input:checked + span {
+                        background-color: var(--fantasy-txt-clr);
+                        color: var(--primary-bg-clr);
+                    }
+                    input:not(:checked) + span {
+                        @include hover {
+                            background-color: var(--fantasy-txt-clr);
+                            color: var(--primary-bg-clr);
+                        }
+                    }
+                    input {
+                        appearance: none;
+                        block-size: 100%;
+                        inline-size: 100%;
+                        -webkit-tap-highlight-color: transparent;
+                    }
+                }
+            }
+        }
         button {
             justify-self: center;
+            + p {
+                text-align: center;
+            }
         }
     }
 }
@@ -89,7 +137,7 @@ main:has(.profile) {
                 }
                 @include s {
                     flex-direction: row;
-                    justify-content:  space-between;
+                    justify-content: space-between;
                 }
             }
         }
@@ -111,5 +159,17 @@ main:has(.profile) {
                 justify-self: end;
             }
         }
+    }
+}
+
+.delete_account {
+    display: grid;
+    gap: 1em;
+    max-width: var(--half-page-max-width);
+    + p {
+        text-align: center;
+    }
+    @include s {
+        justify-content: center;
     }
 }

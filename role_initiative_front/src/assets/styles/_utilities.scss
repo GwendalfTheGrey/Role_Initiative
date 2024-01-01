@@ -45,6 +45,21 @@
             color: var(--primary-bg-clr);
         }
     }
+    &-full {
+        border: 0.125em solid var(--_txt-clr);
+        background-color: var(--_txt-clr);
+        color: var(--primary-bg-clr);
+        transition: filter 400ms ease, border-color 300ms ease-in-out 100ms,
+        background-color 300ms ease-in-out 100ms,
+        color 300ms ease-in-out 100ms;
+        &:disabled {
+            opacity: var(--half-opacity);
+        }
+        @include hover {
+            background-color: transparent;
+            color: var(--_txt-clr);
+        }
+    }
 }
 
 // TEXT INPUTS UTILITY CLASS

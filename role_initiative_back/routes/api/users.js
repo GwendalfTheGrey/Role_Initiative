@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {
                         algorithm: "RS256",
                     });
                     res.cookie("Role_Initiative_Token", token, { maxAge: 1000 * 60 * 60 * 24 });
-                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1 });
+                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result[0].icon, GM: result[0].GM === 1, admin: result[0].admin === 1 });
                 } else if (bcrypt.compareSync(passwordLogin, result[0].userPassword) && stayConnected) {
                     const token = jsonwebtoken.sign({}, key, {
                         subject: result[0].idUser.toString(),
@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
                         algorithm: "RS256",
                     });
                     res.cookie("Role_Initiative_Token", token, { maxAge: 1000 * 60 * 60 * 24 * 30 });
-                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1 });
+                    res.json({ ...result[0], userPassword: "", icon: !result[0].icon.data ? null : result[0].icon, GM: result[0].GM === 1, admin: result[0].admin === 1 });
                 } else {
                     res.status(400).json("Email et/ou mot de passe incorrectes");
                 }
@@ -114,7 +114,7 @@ router.get("/connectedUser", (req, res) => {
                 "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE idUser = ?";
             connection.query(selectSql, [decodedToken.sub], (err, result) => {
                 if (err) throw err;
-                const connectedUser = { ...result[0], userPassword: "", icon: !result[0].icon.data ? false : result.icon, GM: result[0].GM === 1, admin: result[0].admin === 1 };
+                const connectedUser = { ...result[0], userPassword: "", icon: !result[0].icon.data ? false : result[0].icon, GM: result[0].GM === 1, admin: result[0].admin === 1 };
                 if (connectedUser) {
                     res.json(connectedUser);
                 } else {
@@ -217,6 +217,70 @@ router.post("/changePassword", async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json("Une erreur est survenue");
+    }
+});
+
+router.patch("/modifyUser", (req, res) => {
+    try {
+        const { idUser, username, email, idLevel, icon } = req.body;
+        const modifyUserSql = icon ?
+        "UPDATE users JOIN usershavelevels ON users.idUser = usershavelevels.idUser SET users.username = ?, users.email = ?, users.icon = ?, usershavelevels.idLevel = ? WHERE users.idUser = ?" :
+        "UPDATE users JOIN usershavelevels ON users.idUser = usershavelevels.idUser SET users.username = ?, users.email = ?, usershavelevels.idLevel = ? WHERE users.idUser = ?";
+        connection.query(modifyUserSql, icon ? [username, email, icon, idLevel, idUser] : [username, email, idLevel, idUser], (err, result) => {
+            if (err) throw err;
+            const selectModifiedUserSql = "SELECT * FROM users NATURAL JOIN usershavelevels NATURAL JOIN levels WHERE idUser = ?";
+            connection.query(selectModifiedUserSql, [idUser], (err, result) => {
+                if (err) throw err;
+                if (result.length > 0) {
+                    const modifiedUser = { ...result[0], userPassword: "", icon: !result[0].icon.data ? false : result[0].icon, GM: result[0].GM === 1, admin: result[0].admin === 1 };
+                    res.json(modifiedUser)
+                } else {
+                    res.status(404).json("Utilisateur non trouvé")
+                }
+            })
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json("Une erreur est survenue");
+    }
+});
+
+router.delete("/deleteUser/:idUser", (req, res) => {
+    try {
+        const idUser = req.params.idUser;
+        const deleteUserJoinRoomSql = "DELETE FROM usersjoinrooms WHERE idUser = ?";
+        connection.query(deleteUserJoinRoomSql, [idUser], (err, result) => {
+            if (err) throw err;
+            const selectUserRoomsSql = "SELECT * FROM rooms WHERE idUser = ?";
+            connection.query(selectUserRoomsSql, [idUser], (err, result) => {
+                if (err) throw err;
+                if (result.length > 0) {
+                    result.map((room) => {
+                        const deleteRoomHaveLevelsSql = "DELETE FROM roomshavelevels WHERE idRoom = ?";
+                        connection.query(deleteRoomHaveLevelsSql, [room.idRoom], (err, result) => {
+                            if (err) throw err;
+                        });
+                    });
+                }
+                const deleteUserRoomsSql = "DELETE FROM rooms WHERE idUser = ?";
+                connection.query(deleteUserRoomsSql, [idUser], (err, result) => {
+                    if (err) throw err;
+                    const deleteUserHaveLevel = "DELETE FROM usershavelevels WHERE idUser = ?";
+                    connection.query(deleteUserHaveLevel, [idUser], (err, result) => {
+                        if (err) throw err;
+                        const deleteUserSql = "DELETE FROM users WHERE idUser = ?";
+                        connection.query(deleteUserSql, [idUser], (err, result) => {
+                            if (err) throw err;
+                            res.clearCookie("Role_Initiative_Token" || "Role_Initiative_Extended_Token");
+                            res.status(200).json({ message: "Compte supprimé, vous allez être redirigé(e) !" });
+                        });
+                    });
+                });
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ messageError: "Une erreur est survenue" });
     }
 });
 

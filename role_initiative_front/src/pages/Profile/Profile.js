@@ -11,14 +11,21 @@ import { useFetchProfileAllRooms } from "../../hooks/useFetchProfileAllRooms";
 import { useFetchProfileGM } from "../../hooks/useFetchProfileGM";
 import { useFetchProfilePlayer } from "../../hooks/useFetchProfilePlayer";
 import { changeOngoing, deleteRoom } from "../../apis/rooms";
-import { userLeavesRoom } from "../../apis/users";
+import { deleteUser, modifyUser, userLeavesRoom } from "../../apis/users";
+import { LevelsContext } from "../../context/LevelsContext";
 
 export default function Profile() {
     const { idUser } = useParams();
 
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
 
-    const [deleteUser, setDeleteUser] = useState(false);
+    const levels = useContext(LevelsContext);
+
+    const [modifyFeedBack, setModifyFeedBack] = useState();
+
+    const [willDeleteUser, setWillDeleteUser] = useState(false);
+
+    const [deleteUserFeedBack, setDeleteUserFeedBack] = useState();
 
     const [allRooms, setAllRooms] = useFetchProfileAllRooms();
 
@@ -34,10 +41,10 @@ export default function Profile() {
     }, [idUser, navigate, user.idUser, user.username]);
 
     const defaultValues = {
+        icon: user.icon,
         username: user.username,
         email: user.email,
-        confirmPassword: "",
-        icon: null,
+        idLevel: `${user.idLevel}`,
     };
 
     const validationSchema = yup.object({
@@ -53,12 +60,9 @@ export default function Profile() {
                 /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                 "Email non valide"
             ),
-        confirmPassword: yup
+        idLevel: yup
             .string()
-            .required("Confirmez votre mot de passe pour valider")
-            .min(8, "8 à 30 caractères attendus")
-            .max(30, "8 à 30 caractères attendus")
-            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!?@#~_$^*%&;§=+ÈÉ/\-\\])/, "Exemple valide : D&Dr4g0ns"),
+            .required("Votre niveau est nécessaire"),
     });
 
     const {
@@ -67,7 +71,6 @@ export default function Profile() {
         formState: { errors, isSubmitting },
         setError,
         clearErrors,
-        reset
     } = useForm({
         defaultValues,
         resolver: yupResolver(validationSchema),
@@ -76,10 +79,13 @@ export default function Profile() {
     const submit = async (values) => {
         try {
             clearErrors();
-            // await login({ ...values, admin: adminSigningScreen, emailLogin: values.emailLogin.toLowerCase() });
-            reset();
-            navigate("/");
+            const response = await modifyUser({...values, idUser: idUser});
+            if (response.idUser) {
+                setUser({...user, username: response.username, email: response.email, idLevel: response.idLevel, levelName: response.levelName, icon: response.icon})
+                setModifyFeedBack("Profil modifié");
+            }
         } catch (error) {
+            setModifyFeedBack(null);
             setError("generic", { type: "generic", message: error });
         }
     };
@@ -109,7 +115,7 @@ export default function Profile() {
         setPlayerRooms(playerRooms.filter((room) => room.idRoom !== params.idRoom));
     };
 
-    const handleDelete = async (idRoom) => {
+    const handleDeleteRoom = async (idRoom) => {
         console.log(idRoom);
         await deleteRoom(idRoom);
         if (allRooms) {
@@ -117,6 +123,30 @@ export default function Profile() {
             setGMRooms(GMRooms.filter((room) => room.idRoom !== idRoom));
         } else {
             setGMRooms(GMRooms.filter((room) => room.idRoom !== idRoom));
+        }
+    };
+
+    const handleDeleteUser = async (key) => {
+        switch (key) {
+            case "delete?":
+                setWillDeleteUser(true);
+                break;
+            case "cancel":
+                setWillDeleteUser(false);
+                break;
+            default:
+                console.log("Delete!");
+                const response = await deleteUser(idUser);
+                if (response.messageError) {
+                    setDeleteUserFeedBack(response.messageError);
+                } else if (response.message) {
+                    setDeleteUserFeedBack(response.message);
+                    setTimeout(() => {
+                        setWillDeleteUser(false);
+                        setDeleteUserFeedBack(null);
+                        setUser(null);
+                    }, 2000);
+                }
         }
     };
 
@@ -138,22 +168,31 @@ export default function Profile() {
                         </div>
                     </div>
                     <label className="input-text" htmlFor="username">
-                        <input id="username" name="username" type="text" placeholder="" required {...register("username")} />
+                        <input id="username" name="username" type="text" placeholder="" {...register("username")} />
                         <span>Nom d'utilisateur</span>
                         {errors.username && <p className="form-error">{errors.username.message}</p>}
                     </label>
 
                     <label className="input-text" htmlFor="email">
-                        <input id="email" name="email" type="email" placeholder="" required {...register("email")} />
+                        <input id="email" name="email" type="email" placeholder="" readOnly {...register("email")} />
                         <span>Email</span>
                         {errors.email && <p className="form-error">{errors.email.message}</p>}
                     </label>
 
-                    <label className="input-text" htmlFor="confirmPassword">
-                        <input id="confirmPassword" name="confirmPassword" type="password" placeholder="" required {...register("confirmPassword")} />
-                        <span>Confirmer le mot de passe</span>
-                        {errors.confirmPassword && <p className="form-error">{errors.confirmPassword.message}</p>}
-                    </label>
+                    <div className={`${style.profile_form_levels_wrapper}`}>
+                        <p>Niveau de joueur : </p>
+                        <div className={`${style.profile_form_levels_wrapper_content}`}>
+                            {
+                                levels?.map((level) => (
+                                    <label key={level.idLevel} htmlFor={level.idLevel}>
+                                        <input id={level.idLevel} name="idLevel" type="radio" value={level.idLevel} {...register("idLevel")} />
+                                        <span>{level.levelName}</span>
+                                    </label>
+                                ))
+                            }
+                            {errors.idLevel && <p className="form-error">{errors.idLevel.message}</p>}
+                        </div>
+                    </div>
 
                     {errors.generic && (
                         <p className="form-error">{errors.generic.message}</p>
@@ -162,6 +201,11 @@ export default function Profile() {
                     <button disabled={isSubmitting} className="btn btn-phantom">
                         Modifier
                     </button>
+
+                    {
+                    modifyFeedBack &&
+                    <p className="form-error">{modifyFeedBack}</p>
+                    }
                 </form>
             </section>
 
@@ -212,7 +256,7 @@ export default function Profile() {
                                         user.idUser === room.idUser &&
                                         <button className="btn btn-phantom" onClick={() => handleOngoing({ idRoom: room.idRoom, onGoing: !room.onGoing })}>{!room.onGoing ? "Démarrer" : "Arrêter"}</button>
                                     }
-                                    <button className="btn btn-phantom" onClick={() => handleDelete(room.idRoom)}>Supprimer</button>
+                                    <button className="btn btn-phantom" onClick={() => handleDeleteRoom(room.idRoom)}>Supprimer</button>
                                 </div>
                             </div>
                         ))
@@ -245,12 +289,29 @@ export default function Profile() {
                                                 :
                                                 ""
                                     }
-                                    <button className="btn btn-phantom" onClick={() => handleDelete(room.idRoom)}>Supprimer</button>
+                                    <button className="btn btn-phantom" onClick={() => handleDeleteRoom(room.idRoom)}>Supprimer</button>
                                 </div>
                             </div>
                         ))
                     }
                 </section>
+            }
+
+            <div className={`page-width center-horizontal ${style.delete_account}`}>
+                {
+                    willDeleteUser &&
+                    <button className="btn btn-phantom" onClick={() => handleDeleteUser("cancel")}>
+                        Annuler
+                    </button>
+                }
+                <button className={willDeleteUser ? "btn btn-full" : "btn btn-phantom"} onClick={() => willDeleteUser ? handleDeleteUser("delete!") : handleDeleteUser("delete?")}>
+                    {willDeleteUser ? "Confirmer" : "Supprimer compte"}
+                </button>
+            </div>
+
+            {
+                deleteUserFeedBack &&
+                <p className="form-error">{deleteUserFeedBack}</p>
             }
         </main>
     );
