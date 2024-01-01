@@ -78,3 +78,39 @@ export const userLeavesRoom = async (params) => {
         },
     });
 };
+
+export const modifyUser = async (values) => {
+    const response = await fetch(`${API_USERS}/modifyUser`, {
+        method: "PATCH",
+        body: JSON.stringify(values),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    const backResponse = await response.json()
+    if (response.ok) {
+        return backResponse
+    } else {
+        if(backResponse) {
+            return backResponse
+        } else {
+            throw new Error("API Modify User Error")
+        }
+    }
+}
+
+export const deleteUser = async (idUser) => {
+    const response = await fetch(`${API_USERS}/deleteUser/${idUser}`, {
+        method: "DELETE",
+    })
+    const backResponse = await response.json();
+    if (response.ok) {
+        return backResponse
+    } else {
+        if(backResponse) {
+            return backResponse
+        } else {
+            throw new Error("API Delete User Error")
+        }
+    }
+}
